@@ -2,7 +2,7 @@
 import { createContext, useContext, useRef } from 'react';
 import { useStore } from 'zustand';
 
-import { createGameStore, selectIncreaseTime, selectTime } from '../stores/store';
+import { createGameStore } from '../stores/store';
 
 import type { GameStore, State, Store } from '../stores/store';
 import type { ReactNode } from 'react';
@@ -39,5 +39,16 @@ export const useGameStore = <T,>(selector: (store: Store) => T): T => {
   return useStore(store, selector);
 };
 
+const selectVersion = ({ version }: Store) => version;
+const selectPopulation = ({ population }: Store) => population;
+const selectTime = ({ time }: Store) => time;
+const selectIncreaseTime = ({ increaseTime }: Store) => increaseTime;
+const selectAngle = ({ angle }: Store) => angle;
+const selectRotateCamera = ({ rotateCamera }: Store) => rotateCamera;
+
 export const useSelectTime = () => useGameStore(selectTime);
+export const useSelectVersion = () => useGameStore(selectVersion);
+export const useSelectPopulation = () => useGameStore(selectPopulation);
 export const useSelectIncreaseTime = () => useGameStore(selectIncreaseTime);
+export const useSelectAngle = () => useGameStore(selectAngle);
+export const useSelectRotateCamera = () => useGameStore(selectRotateCamera);

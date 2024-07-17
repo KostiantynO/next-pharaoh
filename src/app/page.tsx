@@ -3,7 +3,7 @@ import { NavBar } from '@/components/NavBar';
 
 const Home = () => {
   return (
-    <main className="relative">
+    <main className="relative h-full">
       <NavBar />
       <GameCanvas />
     </main>
