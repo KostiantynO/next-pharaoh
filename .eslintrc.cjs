@@ -14,6 +14,7 @@ const eslintConfig = {
   rules: {
     '@typescript-eslint/array-type': 'off',
     '@typescript-eslint/consistent-type-definitions': 'warn',
+    '@typescript-eslint/no-empty-interface': 'off',
     '@typescript-eslint/consistent-type-imports': [
       'warn',
       {
@@ -21,12 +22,7 @@ const eslintConfig = {
         fixStyle: 'separate-type-imports',
       },
     ],
-    // "@typescript-eslint/no-unused-vars": [
-    //   "warn",
-    //   {
-    //     "argsIgnorePattern": "^_"
-    //   }
-    // ],
+    '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
     // "@typescript-eslint/require-await": "off",
     '@typescript-eslint/no-misused-promises': [
       'error',
@@ -41,10 +37,7 @@ const eslintConfig = {
     'linebreak-style': ['error', 'unix'],
     'import/consistent-type-specifier-style': ['warn', 'prefer-top-level'],
     'object-shorthand': 'warn',
-    'sort-imports': [
-      'error',
-      { ignoreCase: true, ignoreDeclarationSort: true },
-    ],
+    'sort-imports': ['error', { ignoreCase: true, ignoreDeclarationSort: true }],
     'import/order': [
       'error',
       {
