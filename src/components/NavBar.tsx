@@ -1,5 +1,6 @@
 'use client';
-import { useSelectRotateCamera } from '@/providers/StoreProvider';
+
+import { useSelectRotateCamera } from '@/stores/selectors';
 
 import { TimeIndicator } from './TimeIndicator';
 
@@ -12,7 +13,7 @@ export const NavBar = () => {
   const rotate270 = () => rotate(270);
 
   return (
-    <header className="flex h-6 justify-evenly">
+    <header className="absolute left-0 right-0 top-0 flex h-6 justify-evenly">
       <p>
         Time: <TimeIndicator />
       </p>

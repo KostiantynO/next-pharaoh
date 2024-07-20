@@ -1,6 +1,6 @@
 import { Inter } from 'next/font/google';
 
-import { getStore } from '@/api/store';
+import { getStore } from '@/api/init-store';
 import { StoreProvider } from '@/providers/StoreProvider';
 
 import './globals.css';
@@ -19,7 +19,7 @@ const RootLayout = async ({ children }: Readonly<{ children: ReactNode }>) => {
   const initialStore = await getStore();
 
   return (
-    <html lang="en" className='h-full'>
+    <html lang="en" className="h-full">
       <body className={`h-full ${inter.className}`}>
         <StoreProvider initialStore={initialStore}>{children}</StoreProvider>
       </body>

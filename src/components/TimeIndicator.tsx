@@ -1,5 +1,6 @@
 'use client';
-import { useSelectTime } from '@/providers/StoreProvider';
+
+import { useSelectTime } from '@/stores/selectors';
 
 export const TimeIndicator = () => {
   const time = useSelectTime();
