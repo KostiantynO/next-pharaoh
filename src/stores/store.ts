@@ -7,10 +7,10 @@ import type {
   Building,
   Buildings,
   BuildingType,
-  ClickOnCanvas,
-  Dynasties,
-  IsometricAngles,
-} from '@/api/types';
+  Coordinate,
+} from '@/types/buildings/common';
+import type { Dynasties } from '@/types/dynasties';
+import type { ClickOnCanvas } from '@/types/interactions';
 import type { Camera, Scene } from 'three';
 import type { StoreApi, UseBoundStore } from 'zustand';
 
@@ -19,7 +19,7 @@ export interface State {
   dynasties: Dynasties;
   totalPopulation: number;
   time: string;
-  angle: IsometricAngles;
+  angle: number;
   buildings: Buildings;
   activeBuildingId: Building['buildingId'] | null;
   typeToBuildId: BuildingType['typeId'] | null;
@@ -28,10 +28,10 @@ export interface State {
 
 interface Actions {
   increaseTime: () => void;
-  rotateCamera: (angle: IsometricAngles) => void;
+  rotateCamera: (angle: number) => void;
   chooseTypeToBuild: (typeToBuildId: BuildingType['typeId']) => () => void;
   addBuilding: (e: ClickOnCanvas, camera: Camera, scene: Scene) => void;
-  getBuilding: (buildingId: Building['buildingId']) => Building;
+  getBuilding: (buildingId: Building['buildingId']) => undefined | Building;
   removeBuilding: (event: ClickOnCanvas) => void;
   toggleSidebar: () => void;
 }
@@ -56,7 +56,7 @@ const getRay = ({
   clientHeight: number;
   camera: Camera;
   scene: Scene;
-}) => {
+}): undefined | { buildingId: string; coordinate: Coordinate } => {
   const raycaster = new Raycaster();
   const mouse = new Vector2();
 
@@ -76,7 +76,7 @@ const getRay = ({
 
   const newId = `${buildingIds++}`;
 
-  return { x, y, z, buildingId: newId };
+  return { buildingId: newId, coordinate: [x, y, z] };
 };
 
 export const createGameStore = (initialState: State): GameStore =>
@@ -100,67 +100,78 @@ export const createGameStore = (initialState: State): GameStore =>
       const typeId = get().typeToBuildId;
       if (typeId == null) return;
 
-      if (typeId === 0) {
-        const buildingType = buildingTypes[typeId];
-        if (!buildingType) return;
-        const { type, w, d, h, desirability, img1, riskOfFire, riskOfDamage } =
-          buildingType;
+      const buildingType = buildingTypes[typeId];
+      if (!buildingType) return;
+      const { type, size, desirability, images, riskOfFire, riskOfDamage } = buildingType;
 
-        const point = getRay({
-          offsetX,
-          offsetY,
-          clientWidth,
-          clientHeight,
-          camera,
-          scene,
-        });
-        if (!point) return;
+      const point = getRay({
+        offsetX,
+        offsetY,
+        clientWidth,
+        clientHeight,
+        camera,
+        scene,
+      });
 
-        const { buildingId, x, y, z } = point;
-        const newBuilding: Building = {
-          buildingId,
-          typeId,
-          type,
-          x,
-          y,
-          z,
-          w,
-          d,
-          h,
-          desirability,
-          riskOfFire,
-          riskOfDamage,
-          img1,
-        };
-        console.log(newBuilding);
+      if (!point) return;
 
-        set(({ buildings: { ids, entities } }) => ({
-          buildings: {
-            ids: [...ids, buildingId],
-            entities: { ...entities, [buildingId]: newBuilding },
-          },
-        }));
+      const { buildingId, coordinate } = point;
+
+      const newX = coordinate[0];
+      const newY = coordinate[1];
+      const newZ = coordinate[2];
+
+      const { buildings } = get();
+
+      const isExisting: boolean = buildings.ids
+        .map(id => {
+          const building = buildings.entities[id];
+          if (!building) return;
+          const existingX = building.coordinate[0];
+          const existingY = building.coordinate[1];
+          const existingZ = building.coordinate[2];
+
+          if (existingX === newX && existingY === newY && existingZ === newZ) return true;
+        })
+        .some(Boolean);
+
+      if (isExisting) {
+        console.log(`Place at ${coordinate.toString()} is already occupied`);
         return;
       }
+
+      let newCoordinate: Coordinate = coordinate;
+
+      if (type === 'Temple of Bast') {
+        newCoordinate = [newX, newY + 1, newZ];
+      }
+
+      const newBuilding: Building = {
+        buildingId,
+        typeId,
+        type,
+        coordinate: newCoordinate,
+        size,
+        desirability,
+        riskOfFire,
+        riskOfDamage,
+        images,
+      };
+
+      console.log(newBuilding);
+
+      set(({ buildings: { ids, entities } }) => ({
+        buildings: {
+          ids: [...ids, buildingId],
+          entities: { ...entities, [buildingId]: newBuilding },
+        },
+      }));
+      return;
     },
     getBuilding: buildingId => get().buildings.entities[buildingId],
-    removeBuilding: ({
-      nativeEvent: { offsetX, offsetY },
-      currentTarget: { clientWidth, clientHeight },
-    }) => {
-      const x = Math.round((offsetX / clientWidth) * 100 - 50) + 0;
-      const z = Math.round((offsetY / clientHeight) * 100 - 50) + 0;
-
-      const buildingSize = 3;
-
-      const TODO_UPDATE_THIS_CONDITION =
-        Math.abs(x) + buildingSize && Math.abs(x) + buildingSize;
-
-      const id = '0'; // TODO: update to find out if there is a building under clicked location. Building expands +1.5 tiles from its center in all directions if building occupies 3x3 tiles space
-
-      // assume buildings are placed in the center of a mouse click
-
-      if (!id) return;
+    removeBuilding: () => {
+      const id = '0';
+      if (id === '0') return;
 
       set(({ buildings: { ids, entities } }) => {
         const newIds = ids.filter(buildingId => buildingId !== id);

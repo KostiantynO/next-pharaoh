@@ -4,14 +4,16 @@ import { useSelectDataForSidebar } from '@/stores/selectors';
 
 import { ConstructionButton } from './ConstructionButton';
 
-const buildingTypesArray = Object.values(buildingTypes);
+import type { BuildingType } from '@/types/buildings/common';
+
+const buildingTypesArray = Object.values<BuildingType>(buildingTypes);
 
 export const Sidebar = () => {
   const { isSidebarOpen, toggleSidebar } = useSelectDataForSidebar();
 
-  const buttons = buildingTypesArray.map(({ typeId, type }) => {
+  const buttons = buildingTypesArray.map(({ typeId,  }) => {
     return (
-      <ConstructionButton key={typeId} buildingTypeId={typeId} buildingType={type} />
+      <ConstructionButton key={typeId} buildingTypeId={typeId} />
     );
   });
 

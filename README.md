@@ -246,7 +246,7 @@ pnpm add -D @types/three # 402 MB (421,849,020 bytes)
     - [ ] Buildings purpose system
       - [ ] Housing (one house)
         - [ ] Meager shanty
-        - [ ] Moderate homestead
+        - [ ] Modest homestead
         - [ ] Palatial estate
       - [ ] Religion
         - [ ] Temple to Bast (Home)
@@ -313,27 +313,27 @@ pnpm add -D @types/three # 402 MB (421,849,020 bytes)
         - [ ] Scriber school
         - [ ] Library
       - [ ] Military Buildings
-      - recruits camp
-      - academy
-      - archers fort
-      - melee warriors fort
-      - chariots fort
-      - warship dock
-      - warship wharf
-      - guard tower
-      - stonewalls
-      - gatehouse
+        - [ ] recruits camp
+        - [ ] academy
+        - [ ] archers fort
+        - [ ] melee warriors fort
+        - [ ] chariots fort
+        - [ ] warship dock
+        - [ ] warship wharf
+        - [ ] guard tower
+        - [ ] stonewalls
+        - [ ] gatehouse
       - [ ] Monuments
-        - Small Mastaba
-        - Medium Mastaba
-        - Great Mastaba
-        - Small Obelisk
-        - Medium Obelisk
-        - Big Obelisk
-        - Sphinx
-        - Small Pyramid
-        - Medium Pyramid
-        - Great Pyramid of Giza
+        - [ ] Small Mastaba
+        - [ ] Medium Mastaba
+        - [ ] Great Mastaba
+        - [ ] Small Obelisk
+        - [ ] Medium Obelisk
+        - [ ] Big Obelisk
+        - [ ] Sphinx
+        - [ ] Small Pyramid
+        - [ ] Medium Pyramid
+        - [ ] Great Pyramid of Giza
     - [ ] Music and sounds system
       - [ ] resting ambient music
       - [ ] npc normal replies

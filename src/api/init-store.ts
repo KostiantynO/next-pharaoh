@@ -1,14 +1,10 @@
-import type {
-  ArchitectsPost,
-  BuildingTypes,
-  CrudeHut1x1,
-  Firehouse,
-  FoodTypes,
-  TempleOfBast,
-  WaterSupply,
-  Well,
-} from './types';
 import type { State } from '@/stores/store';
+import type { BuildingTypes } from '@/types/buildings/buildings';
+import type { CrudeHutSmall } from '@/types/buildings/housing';
+import type { WaterSupply, Well } from '@/types/buildings/hygiene';
+import type { ArchitectsPost, Firehouse } from '@/types/buildings/infrastructure';
+import type { TempleOfBast } from '@/types/buildings/religion';
+import type { FoodTypes } from '@/types/foods';
 
 const initialGameState: State = {
   version: 0,
@@ -24,6 +20,7 @@ const initialGameState: State = {
 
 const temple = Object.freeze({
   employees: 8,
+  size: [3, 4, 3],
   cost: [225, 180, 150, 120, 30],
   desirability: [6, 6, 4, 4, 2, 2],
   riskOfFire: [0, 0, 0, 0, 0],
@@ -31,101 +28,102 @@ const temple = Object.freeze({
 } as const);
 
 const templeOfBast: TempleOfBast = Object.freeze({
-  typeId: 5,
+  typeId: '5',
   type: 'Temple of Bast',
-  w: 3,
-  d: 3,
-  h: 4,
+  size: temple.size,
   employees: temple.employees,
   cost: temple.cost,
+
   desirability: temple.desirability,
   riskOfFire: temple.riskOfFire,
   riskOfDamage: temple.riskOfDamage,
-  img1: '/religion/temple-of-bast.webp',
+
+  images: ['/religion/temple-of-bast.webp'],
 } as const);
 
-const crudeHut: CrudeHut1x1 = Object.freeze({
-  typeId: 0,
+const SIZE_SMALL_HUT = Object.freeze([1, 1, 1] as const);
+
+const crudeHutSmall: CrudeHutSmall = {
+  typeId: '0',
   type: 'Crude Hut',
-  w: 1,
-  d: 1,
-  h: 1,
   prosperity: [5, 5, 5, 10, 15],
   desirability: [-2, -1, 0, 0, 0, 0],
+  images: ['/house/crude-hut-1x1a.webp', '/house/crude-hut-1x1b.webp'],
+
+  pop: 5,
+  size: SIZE_SMALL_HUT,
+  needDesirability: [-98, -98, -98, -98, -98],
+  needEntertainment: [0, 0, 0, 0, 0],
+  needServices: { road: true },
+  taxRateMultiplier: [1, 1, 1, 1, 2],
+
+  devolveDesirability: [-99, -99, -99, -99, -99],
   riskOfFire: [22, 18, 15, 12, 3],
-  maxPop: 5,
-  currentPop: 0,
-  taxes: [1, 1, 1, 1, 2],
-  img1: '/house/crude-hut-1x1a.webp',
-  img2: '/house/crude-hut-1x1b.webp',
-  services: [],
   riskOfDamage: [0, 0, 0, 0, 0],
-} as const);
+  riskOfCrimeBase: [35, 35, 25, 22, 1],
+  riskOfCrimeIncrement: [50, 40, 30, 20, 0],
+  riskOfDisease: [70, 60, 40, 30, -130],
+  riskOfMalaria: [70, 60, 50, 40, -130],
+};
+
+const crudeHut: CrudeHutSmall = Object.freeze(crudeHutSmall);
 
 const firehouse: Firehouse = Object.freeze({
-  typeId: 1,
+  typeId: '1',
   type: 'Firehouse',
-  w: 1,
-  d: 1,
-  h: 1,
+  size: SIZE_SMALL_HUT,
   employees: 6,
   cost: [45, 36, 30, 24, 6],
   desirability: [-2, -1, 0, 0, 0, 0],
   riskOfFire: [3, 2, 2, 1, 0],
   riskOfDamage: [0, 0, 0, 0, 0],
-  img1: '/infra/firehouse.webp',
+  images: ['/infra/firehouse.webp'],
 } as const);
 
 const architectsPost: ArchitectsPost = Object.freeze({
-  typeId: 2,
+  typeId: '2',
   type: 'Architect’s Post',
-  w: 1,
-  d: 1,
-  h: 1,
+  size: SIZE_SMALL_HUT,
   employees: 5,
   cost: [45, 36, 30, 24, 6],
   desirability: [0, 0, 0, 0, 0, 0],
   riskOfFire: [0, 0, 0, 0, 0],
   riskOfDamage: [3, 2, 2, 1, 0],
-  img1: '/infra/architects-post.webp',
+  images: ['/infra/architects-post.webp'],
 } as const);
 
 const waterSupply: WaterSupply = Object.freeze({
-  typeId: 3,
+  typeId: '3',
   type: 'Water Supply',
-  w: 2,
-  d: 2,
-  h: 1,
+  size: [2, 1, 2],
   employees: 5,
   cost: [75, 60, 50, 40, 10],
   desirability: [4, 3, 2, 1, 0, 0],
   riskOfFire: [0, 0, 0, 0, 0],
   riskOfDamage: [0, 0, 0, 0, 0],
-  img1: '/infra/water-supply.webp',
+  images: ['/infra/water-supply.webp'],
 } as const);
 
 const well: Well = Object.freeze({
-  typeId: 4,
+  typeId: '4',
   type: 'Well',
-  w: 1,
-  d: 1,
-  h: 1,
+  size: SIZE_SMALL_HUT,
   employees: 0,
   cost: [7, 6, 5, 4, 1],
   desirability: [1, 0, 0, 0, 0, 0],
   riskOfFire: [0, 0, 0, 0, 0],
   riskOfDamage: [0, 0, 0, 0, 0],
-  img1: '/infra/well.webp',
+  images: ['/infra/well.webp'],
 } as const);
 
 export const buildingTypes: BuildingTypes = Object.freeze({
-  0: crudeHut,
-  1: firehouse,
-  2: architectsPost,
-  3: waterSupply,
-  4: well,
-  5: templeOfBast,
-} as const) satisfies BuildingTypes;
+  '0': crudeHut,
+  '1': firehouse,
+  '2': architectsPost,
+  '3': waterSupply,
+  '4': well,
+  '5': templeOfBast,
+} as const);
 
 export const foodTypeObject: FoodTypes = Object.freeze({
   0: { foodId: 0, foodType: 'Grain' },

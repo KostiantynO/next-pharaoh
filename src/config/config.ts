@@ -5,4 +5,4 @@ export const FOLDED_SIDEBAR_WIDTH = 80;
 export const MAP_SCALE = 100;
 export const CENTER_TO_0 = 0.5;
 
-export const GRID_SIZE = 50;
+export const GRID_SIZE = 100;

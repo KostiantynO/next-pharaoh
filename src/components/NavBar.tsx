@@ -1,5 +1,7 @@
 'use client';
 
+import { useCallback } from 'react';
+
 import { useSelectRotateCamera } from '@/stores/selectors';
 
 import { TimeIndicator } from './TimeIndicator';
@@ -7,10 +9,10 @@ import { TimeIndicator } from './TimeIndicator';
 export const NavBar = () => {
   const rotate = useSelectRotateCamera();
 
-  const rotate0 = () => rotate(0);
-  const rotate90 = () => rotate(90);
-  const rotate180 = () => rotate(180);
-  const rotate270 = () => rotate(270);
+  const rotate0 = useCallback(() => rotate(0), [rotate]);
+  const rotate90 = useCallback(() => rotate(90), [rotate]);
+  const rotate180 = useCallback(() => rotate(180), [rotate]);
+  const rotate270 = useCallback(() => rotate(270), [rotate]);
 
   return (
     <header className="absolute left-0 right-0 top-0 flex h-6 justify-evenly">

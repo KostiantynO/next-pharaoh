@@ -19,7 +19,7 @@ const RootLayout = async ({ children }: Readonly<{ children: ReactNode }>) => {
   const initialStore = await getStore();
 
   return (
-    <html lang="en" className="h-full">
+    <html lang="en" className="h-full" style={{ backgroundColor: '#212121' }}>
       <body className={`h-full ${inter.className}`}>
         <StoreProvider initialStore={initialStore}>{children}</StoreProvider>
       </body>

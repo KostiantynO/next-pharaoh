@@ -1,7 +1,8 @@
 import { useGameStore } from '@/providers/StoreProvider';
 
-import type { Building, BuildingType } from '@/api/types';
 import type { Store } from '@/stores/store';
+import type { Building, BuildingType } from '@/types/buildings/common';
+
 
 const selectVersion = ({ version }: Store) => version;
 const selectTotalPopulation = ({ totalPopulation }: Store) => totalPopulation;

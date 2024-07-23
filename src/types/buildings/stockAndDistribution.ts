@@ -1,0 +1,5 @@
+// - [ ] Granary
+
+// - [ ] Bazaar
+
+// - [ ] Storage yard

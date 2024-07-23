@@ -6,9 +6,10 @@ import { useRef } from 'react';
 import { GRID_SIZE } from '@/config/config';
 import { useSelectBuildings, useSelectDataForCanvas } from '@/stores/selectors';
 
+import { FixedAngleCamera } from './FixedAngleCamera';
 import { SimpleBuilding } from './SimpleBuilding';
 
-import type { ClickOnCanvas } from '@/api/types';
+import type { ClickOnCanvas } from '@/types/interactions';
 import type { Camera, Scene } from 'three';
 
 export const Buildings = () => {
@@ -32,11 +33,9 @@ export const GameCanvas = () => {
   const sceneRef = useRef<Scene | null>(null);
 
   const onCanvasClick = (e: ClickOnCanvas) => {
-    if (!cameraRef.current || !sceneRef.current)return
+    if (!cameraRef.current || !sceneRef.current) return;
 
-
-      addBuilding(e, cameraRef.current, sceneRef.current);
-
+    addBuilding(e, cameraRef.current, sceneRef.current);
   };
 
   return (
@@ -54,13 +53,13 @@ export const GameCanvas = () => {
         <ambientLight intensity={1} />
         <pointLight position={[10, 10, 10]} />
 
-        <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0, 0]}>
+        <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -0.5, 0]}>
           <planeGeometry args={[GRID_SIZE, GRID_SIZE]} />
           <meshStandardMaterial color="green" />
         </mesh>
 
         <Buildings />
-
+        <FixedAngleCamera />
         <OrbitControls />
       </Canvas>
     </div>
