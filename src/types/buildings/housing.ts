@@ -305,24 +305,25 @@ export interface OrdinaryCottageBig extends OrdinaryCottage, HutVariant {
 // - [ ] Modest homestead
 /* ============================================================= */
 interface ModestHomestead extends Hut {
-  readonly needDesirability: readonly [VH: 13, H: 12, N: 12, E: 11, VE: 10];
-  readonly needEntertainment: readonly [VH: 10, H: 10, N: 10, E: 10, VE: 10]; // update
+  readonly type: 'Modest Homestead'; // +
+  readonly needDesirability: readonly [VH: 13, H: 12, N: 12, E: 11, VE: 10]; // +
+  readonly needEntertainment: readonly [VH: 20, H: 15, N: 13, E: 13, VE: 12]; // +
   readonly needServices: ModestHomesteadNeeds; // +
 
   readonly prosperity: readonly [VH: 35, H: 35, N: 35, E: 40, VE: 45]; // +
   readonly taxRateMultiplier: readonly [VH: 2, H: 2, N: 2, E: 3, VE: 4]; // +
-  readonly desirability: DesirabilityLow; // update to actual values from data txt string. Should be -1	0	0	0	0	0
+  readonly desirability: readonly [-1, 0, 0, 0, 0, 0]; // +
 
-  readonly devolveDesirability: readonly [VH: 11, H: 10, N: 10, E: 9, VE: 8]; // should be 13	12	12	11	10
+  readonly devolveDesirability: readonly [VH: 13, H: 12, N: 12, E: 11, VE: 10]; // +
   readonly riskOfFire: readonly [VH: 30, H: 24, N: 20, E: 17, VE: 4]; // +
   readonly riskOfCrimeBase: readonly [VH: 25, H: 25, N: 17, E: 15, VE: 1]; // +
   readonly riskOfCrimeIncrement: readonly [VH: 29, H: 23, N: 17, E: 14, VE: 0]; // +
   readonly riskOfDisease: readonly [VH: 20, H: 10, N: 0, E: 0, VE: -130]; // +
-  readonly riskOfMalaria: readonly [VH: 20, H: 20, N: 0, E: 0, VE: -130]; //+
+  readonly riskOfMalaria: readonly [VH: 20, H: 20, N: 0, E: 0, VE: -130]; // +
 }
 
 export interface ModestHomesteadSmall extends ModestHomestead, HutVariant {
-  readonly typeId: '10'; // should be 12
+  readonly typeId: '12'; // +
   readonly pop: 16; // +
   readonly size: SizeSmallHouse; // +
   readonly images: readonly [
@@ -332,7 +333,7 @@ export interface ModestHomesteadSmall extends ModestHomestead, HutVariant {
 }
 
 export interface ModestHomesteadBig extends ModestHomestead, HutVariant {
-  readonly typeId: '11'; // should be 13
+  readonly typeId: '13'; // +
   readonly pop: 64; // +
   readonly size: SizeBigHouse; // +
   readonly images: readonly ['/house/modest-homestead-2x2.webp']; // +
