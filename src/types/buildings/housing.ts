@@ -1,5 +1,11 @@
 import type { BuildingType, SizeBigHouse, SizeSmallHouse } from './common';
-import type { Desirability, DifficultyArray, ZeroOnEveryDifficulty } from '../common';
+import type {
+  Desirability,
+  DesirabilityLow,
+  DesirabilityNeutral,
+  DifficultyArray,
+  ZeroOnEveryDifficulty,
+} from '../common';
 import type {
   CommonManorNeeds,
   CommonResidenceNeeds,
@@ -86,7 +92,6 @@ interface HutVariant {
   readonly images: House['images']; // +
 }
 
-type DesirabilityLow = readonly [D1: -2, D2: -1, D3: 0, D4: 0, D5: 0, D6: 0]; // +
 /* ============================================================= */
 interface CrudeHut extends Hut {
   readonly type: 'Crude Hut'; // +
@@ -386,24 +391,43 @@ export interface SpaciousHomesteadBig extends SpaciousHomestead, HutVariant {
 /* ============================================================= */
 
 /* ============================================================= */
-export interface ModestApartment extends House {
-  readonly type: string;
-  readonly needDesirability: DifficultyArray;
-  readonly needEntertainment: DifficultyArray;
+interface ModestApartment extends Hut {
+  readonly type: 'Modest Apartment'; // +
+  readonly needDesirability: readonly [VH: 21, H: 20, N: 20, E: 19, VE: 18]; // +
+  readonly needEntertainment: readonly [VH: 30, H: 25, N: 20, E: 18, VE: 16]; // +
   readonly needServices: ModestApartmentNeeds;
 
-  readonly prosperity: DifficultyArray;
-  readonly taxRateMultiplier: DifficultyArray;
-  readonly desirability: Desirability;
+  readonly prosperity: readonly [VH: 50, H: 50, N: 50, E: 55, VE: 60]; // +
+  readonly taxRateMultiplier: readonly [VH: 2, H: 3, N: 3, E: 3, VE: 4]; // +
+  readonly desirability: DesirabilityNeutral; // +
 
-  readonly devolveDesirability: readonly [VH: 0, H: 0, N: 0, E: 0, VE: 0];
-  readonly riskOfFire: readonly [VH: 0, H: 0, N: 0, E: 0, VE: 0];
-  readonly riskOfCrimeBase: readonly [VH: 0, H: 0, N: 0, E: 0, VE: 0];
-  readonly riskOfCrimeIncrement: readonly [VH: 0, H: 0, N: 0, E: 0, VE: 0];
-  readonly riskOfDisease: readonly [VH: 0, H: 0, N: 0, E: 0, VE: 0];
-  readonly riskOfMalaria: readonly [VH: 0, H: 0, N: 0, E: 0, VE: 0];
+  readonly devolveDesirability: readonly [VH: 19, H: 18, N: 18, E: 17, VE: 16]; // +
+  readonly riskOfFire: readonly [VH: 30, H: 24, N: 20, E: 17, VE: 4]; // +
+  readonly riskOfCrimeBase: readonly [VH: 20, H: 20, N: 15, E: 12, VE: 1]; // +
+  readonly riskOfCrimeIncrement: readonly [VH: 27, H: 21, N: 15, E: 12, VE: 0]; // +
+  readonly riskOfDisease: readonly [VH: 10, H: 0, N: -10, E: -20, VE: -130]; // +
+  readonly riskOfMalaria: readonly [VH: 10, H: 0, N: -10, E: -20, VE: -130]; // +
 }
 
+export interface ModestApartmentSmall extends ModestApartment, HutVariant {
+  readonly typeId: '16'; // +
+  readonly pop: 18; // +
+  readonly size: SizeSmallHouse; // +
+  readonly images: readonly [
+    '/house/modest-apartment-1x1a.webp',
+    '/house/modest-apartment-1x1b.webp',
+  ]; // +
+}
+
+export interface ModestApartmentBig extends ModestApartment, HutVariant {
+  readonly typeId: '17'; // +
+  readonly pop: 72; // +
+  readonly size: SizeBigHouse; // +
+  readonly images: readonly ['/house/modest-apartment-2x2.webp']; // +
+}
+/* ============================================================= */
+
+/* ============================================================= */
 export interface SpaciousApartment extends House {
   readonly type: string;
   readonly needDesirability: DifficultyArray;

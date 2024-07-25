@@ -10,6 +10,9 @@ export type Desirability = readonly [
   D6: number,
 ];
 
+export type DesirabilityLow = readonly [D1: -2, D2: -1, D3: 0, D4: 0, D5: 0, D6: 0]; // +
+export type DesirabilityNeutral = readonly [D1: 0, D2: 0, D3: 0, D4: 0, D5: 0, D6: 0]; // +
+
 export type DifficultyArray = readonly [
   VH: number,
   H: number,
