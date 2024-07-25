@@ -10,13 +10,13 @@ export type Desirability = readonly [
   D6: number,
 ];
 
-export type DifficultyArray<
-  VH extends number = number,
-  H extends number = number,
-  N extends number = number,
-  E extends number = number,
-  VE extends number = number,
-> = readonly [VH, H, N, E, VE];
+export type DifficultyArray = readonly [
+  VH: number,
+  H: number,
+  N: number,
+  E: number,
+  VE: number,
+];
 
 export type ZeroOnEveryDifficulty = readonly [VH: 0, H: 0, N: 0, E: 0, VE: 0];
 

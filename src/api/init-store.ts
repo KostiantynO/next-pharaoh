@@ -43,12 +43,15 @@ const templeOfBast: TempleOfBast = Object.freeze({
 
 const SIZE_SMALL_HUT = Object.freeze([1, 1, 1] as const);
 
-const crudeHutSmall: CrudeHutSmall = {
+const crudeHut: CrudeHutSmall = Object.freeze({
   typeId: '0',
   type: 'Crude Hut',
   prosperity: [5, 5, 5, 10, 15],
   desirability: [-2, -1, 0, 0, 0, 0],
-  images: ['/house/crude-hut-1x1a.webp', '/house/crude-hut-1x1b.webp'],
+  images: [
+    '/house/crude-hut-1x1a.webp', //
+    '/house/crude-hut-1x1b.webp',
+  ],
 
   pop: 5,
   size: SIZE_SMALL_HUT,
@@ -64,9 +67,7 @@ const crudeHutSmall: CrudeHutSmall = {
   riskOfCrimeIncrement: [50, 40, 30, 20, 0],
   riskOfDisease: [70, 60, 40, 30, -130],
   riskOfMalaria: [70, 60, 50, 40, -130],
-};
-
-const crudeHut: CrudeHutSmall = Object.freeze(crudeHutSmall);
+} as const);
 
 const firehouse: Firehouse = Object.freeze({
   typeId: '1',
@@ -101,7 +102,10 @@ const waterSupply: WaterSupply = Object.freeze({
   desirability: [4, 3, 2, 1, 0, 0],
   riskOfFire: [0, 0, 0, 0, 0],
   riskOfDamage: [0, 0, 0, 0, 0],
-  images: ['/infra/water-supply.webp'],
+  images: [
+    '/hygiene/water-supply-2x2a.webp', //
+    '/hygiene/water-supply-2x2b.webp',
+  ],
 } as const);
 
 const well: Well = Object.freeze({
@@ -113,7 +117,7 @@ const well: Well = Object.freeze({
   desirability: [1, 0, 0, 0, 0, 0],
   riskOfFire: [0, 0, 0, 0, 0],
   riskOfDamage: [0, 0, 0, 0, 0],
-  images: ['/infra/well.webp'],
+  images: ['/hygiene/well.webp'],
 } as const);
 
 export const buildingTypes: BuildingTypes = Object.freeze({
@@ -134,6 +138,6 @@ export const foodTypeObject: FoodTypes = Object.freeze({
   5: { foodId: 5, foodType: 'Figs' },
   6: { foodId: 6, foodType: 'Fish' },
   7: { foodId: 7, foodType: 'Game meat' },
-} as const) satisfies FoodTypes;
+} as const);
 
 export const getStore = async (): Promise<State> => Promise.resolve(initialGameState);

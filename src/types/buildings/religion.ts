@@ -1,6 +1,6 @@
-import type { BuildingType, SizeTemple } from './common';
+import type { SizeTemple, WorkPlace } from './common';
 
-export interface Temple extends BuildingType {
+export interface Temple extends WorkPlace {
   size: SizeTemple;
   readonly employees: 8;
   readonly cost: readonly [225, 180, 150, 120, 30];

@@ -8,7 +8,7 @@ export interface Well extends WorkPlace {
   readonly employees: 0;
   readonly cost: readonly [7, 6, 5, 4, 1];
   readonly desirability: readonly [1, 0, 0, 0, 0, 0];
-  readonly images: readonly ['/infra/well.webp'];
+  readonly images: readonly ['/hygiene/well.webp'];
 }
 
 // - [ ] Water Supply
@@ -22,7 +22,10 @@ export interface WaterSupply extends WorkPlace {
   readonly riskOfFire: readonly [0, 0, 0, 0, 0];
   readonly riskOfDamage: readonly [0, 0, 0, 0, 0];
 
-  readonly images: readonly ['/infra/water-supply.webp'];
+  readonly images: readonly [
+    '/hygiene/water-supply-2x2a.webp',
+    '/hygiene/water-supply-2x2b.webp',
+  ];
 }
 
 // - [ ] Physician
