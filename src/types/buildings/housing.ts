@@ -87,7 +87,7 @@ interface HutVariant {
 }
 
 type DesirabilityLow = readonly [D1: -2, D2: -1, D3: 0, D4: 0, D5: 0, D6: 0]; // +
-
+/* ============================================================= */
 interface CrudeHut extends Hut {
   readonly type: 'Crude Hut'; // +
   readonly needDesirability: readonly [VH: -98, H: -98, N: -98, E: -98, VE: -98]; // +
@@ -122,7 +122,9 @@ export interface CrudeHutBig extends CrudeHut, HutVariant {
   readonly size: SizeBigHouse; // +
   readonly images: readonly ['/house/crude-hut-2x2.webp']; // +
 }
+/* ============================================================= */
 
+/* ============================================================= */
 interface SturdyHut extends Hut {
   readonly type: 'Sturdy Hut'; // +
   readonly needDesirability: readonly [-10, -10, -10, -10, -10]; // +
@@ -157,6 +159,7 @@ export interface SturdyHutBig extends SturdyHut, HutVariant {
   readonly size: SizeBigHouse; // +
   readonly images: readonly ['/house/sturdy-hut-2x2.webp']; // +
 }
+/* ============================================================= */
 
 // - [ ] Meager shanty
 /* ============================================================= */
@@ -231,7 +234,9 @@ export interface CommonShantyBig extends CommonShanty, HutVariant {
   readonly size: SizeBigHouse; // +
   readonly images: readonly ['/house/common-shanty-2x2.webp']; // +
 }
+/* ============================================================= */
 
+/* ============================================================= */
 interface RoughCottage extends Hut {
   readonly type: 'Rough Cottage'; // +
   readonly needDesirability: readonly [VH: 4, H: 4, N: 4, E: 3, VE: 2]; // +
@@ -266,7 +271,9 @@ export interface RoughCottageBig extends RoughCottage, HutVariant {
   readonly size: SizeBigHouse; // +
   readonly images: readonly ['/house/rough-cottage-2x2.webp']; // +
 }
+/* ============================================================= */
 
+/* ============================================================= */
 interface OrdinaryCottage extends Hut {
   readonly type: 'Ordinary Cottage'; // +
   readonly needDesirability: readonly [VH: 9, H: 8, N: 8, E: 7, VE: 6]; // +
@@ -301,6 +308,7 @@ export interface OrdinaryCottageBig extends OrdinaryCottage, HutVariant {
   readonly size: SizeBigHouse; // +
   readonly images: readonly ['/house/ordinary-cottage-2x2.webp']; // +
 }
+/* ============================================================= */
 
 // - [ ] Modest homestead
 /* ============================================================= */
@@ -338,31 +346,46 @@ export interface ModestHomesteadBig extends ModestHomestead, HutVariant {
   readonly size: SizeBigHouse; // +
   readonly images: readonly ['/house/modest-homestead-2x2.webp']; // +
 }
-
 /* ============================================================= */
 
 /* ============================================================= */
+interface SpaciousHomestead extends Hut {
+  readonly type: 'Spacious Homestead'; // +
+  readonly needDesirability: readonly [VH: 17, H: 16, N: 16, E: 15, VE: 14]; // +
+  readonly needEntertainment: readonly [VH: 25, H: 20, N: 16, E: 15, VE: 14]; // +
+  readonly needServices: SpaciousHomesteadNeeds; // +
 
-/* ============================================================= */
+  readonly prosperity: readonly [VH: 45, H: 45, N: 45, E: 50, VE: 55]; // +
+  readonly taxRateMultiplier: readonly [VH: 2, H: 2, N: 2, E: 3, VE: 4]; // +
+  readonly desirability: readonly [-1, 0, 0, 0, 0, 0]; // +
 
-export interface SpaciousHomestead extends House {
-  readonly type: string;
-  readonly needDesirability: DifficultyArray;
-  readonly needEntertainment: DifficultyArray;
-  readonly needServices: SpaciousHomesteadNeeds;
-
-  readonly prosperity: DifficultyArray;
-  readonly taxRateMultiplier: DifficultyArray;
-  readonly desirability: Desirability;
-
-  readonly devolveDesirability: readonly [VH: 0, H: 0, N: 0, E: 0, VE: 0];
-  readonly riskOfFire: readonly [VH: 0, H: 0, N: 0, E: 0, VE: 0];
-  readonly riskOfCrimeBase: readonly [VH: 0, H: 0, N: 0, E: 0, VE: 0];
-  readonly riskOfCrimeIncrement: readonly [VH: 0, H: 0, N: 0, E: 0, VE: 0];
-  readonly riskOfDisease: readonly [VH: 0, H: 0, N: 0, E: 0, VE: 0];
-  readonly riskOfMalaria: readonly [VH: 0, H: 0, N: 0, E: 0, VE: 0];
+  readonly devolveDesirability: readonly [VH: 15, H: 14, N: 14, E: 13, VE: 12]; // +
+  readonly riskOfFire: readonly [VH: 30, H: 24, N: 20, E: 17, VE: 4]; // +
+  readonly riskOfCrimeBase: readonly [VH: 25, H: 25, N: 17, E: 15, VE: 1]; // +
+  readonly riskOfCrimeIncrement: readonly [VH: 29, H: 23, N: 17, E: 13, VE: 0]; // +
+  readonly riskOfDisease: readonly [VH: 10, H: 0, N: 0, E: -10, VE: -130]; // +
+  readonly riskOfMalaria: readonly [VH: 20, H: 0, N: 0, E: -10, VE: -130]; // +
 }
 
+export interface SpaciousHomesteadSmall extends SpaciousHomestead, HutVariant {
+  readonly typeId: '14'; // +
+  readonly pop: 17; // +
+  readonly size: SizeSmallHouse; // +
+  readonly images: readonly [
+    '/house/spacious-homestead-1x1a.webp',
+    '/house/spacious-homestead-1x1b.webp',
+  ]; // +
+}
+
+export interface SpaciousHomesteadBig extends SpaciousHomestead, HutVariant {
+  readonly typeId: '15'; // +
+  readonly pop: 68; // +
+  readonly size: SizeBigHouse; // +
+  readonly images: readonly ['/house/spacious-homestead-2x2.webp']; // +
+}
+/* ============================================================= */
+
+/* ============================================================= */
 export interface ModestApartment extends House {
   readonly type: string;
   readonly needDesirability: DifficultyArray;
