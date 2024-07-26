@@ -476,34 +476,51 @@ export interface SpaciousApartmentBig extends SpaciousApartment, HutVariant {
 //   '2x2': House;
 // }
 
-// - [ ] Common Residence
+// - [x] Common Residence
+/* ============================================================= */
 export interface CommonResidence extends House {
-  readonly type: string;
-  readonly needDesirability: DifficultyArray;
-  readonly needEntertainment: DifficultyArray;
-  readonly needServices: CommonResidenceNeeds;
+  readonly typeId: '20'; // +
+  readonly type: 'Common Residence'; // +
+  readonly size: SizeBigHouse; // +
+  readonly pop: 80; // +
 
-  readonly prosperity: DifficultyArray;
-  readonly taxRateMultiplier: DifficultyArray;
-  readonly desirability: Desirability;
+  readonly needDesirability: readonly [VH: 33, H: 32, N: 32, E: 30, VE: 29]; // +
+  readonly needEntertainment: readonly [VH: 40, H: 35, N: 30, E: 25, VE: 20]; // +
+  readonly needServices: CommonResidenceNeeds; // +
 
-  readonly devolveDesirability: readonly [VH: 0, H: 0, N: 0, E: 0, VE: 0];
-  readonly riskOfFire: readonly [VH: 0, H: 0, N: 0, E: 0, VE: 0];
-  readonly riskOfCrimeBase: readonly [VH: 0, H: 0, N: 0, E: 0, VE: 0];
-  readonly riskOfCrimeIncrement: readonly [VH: 0, H: 0, N: 0, E: 0, VE: 0];
-  readonly riskOfDisease: readonly [VH: 0, H: 0, N: 0, E: 0, VE: 0];
-  readonly riskOfMalaria: readonly [VH: 0, H: 0, N: 0, E: 0, VE: 0];
+  readonly prosperity: readonly [VH: 60, H: 60, N: 60, E: 70, VE: 80]; // +
+  readonly taxRateMultiplier: readonly [VH: 3, H: 3, N: 3, E: 4, VE: 5]; // +
+  readonly desirability: DesirabilityNeutral; // +
+
+  readonly devolveDesirability: readonly [VH: 30, H: 29, N: 29, E: 27, VE: 26]; // +
+  readonly riskOfFire: readonly [VH: 30, H: 24, N: 20, E: 17, VE: 4]; // +
+  readonly riskOfCrimeBase: readonly [VH: 20, H: 15, N: 12, E: 8, VE: 1]; // +
+  readonly riskOfCrimeIncrement: readonly [VH: 25, H: 19, N: 13, E: 10, VE: 0]; // +
+  readonly riskOfDisease: readonly [VH: 0, H: -10, N: -30, E: -40, VE: -130]; // +
+  readonly riskOfMalaria: readonly [VH: 0, H: -10, N: -30, E: -40, VE: -130]; // +
+
+  readonly images: readonly [
+    '/house/common-residence-2x2a.webp', //
+    '/house/common-residence-2x2b.webp',
+  ]; // +
 }
+/* ============================================================= */
 
+// - [ ] Spacious Residence
+/* ============================================================= */
 export interface SpaciousResidence extends House {
+  readonly typeId: string;
   readonly type: string;
+  readonly size: SizeBigHouse;
+  readonly pop: number;
+
   readonly needDesirability: DifficultyArray;
   readonly needEntertainment: DifficultyArray;
   readonly needServices: SpaciousResidenceNeeds;
 
   readonly prosperity: DifficultyArray;
   readonly taxRateMultiplier: DifficultyArray;
-  readonly desirability: Desirability;
+  readonly desirability: BuildingType['desirability'];
 
   readonly devolveDesirability: readonly [VH: 0, H: 0, N: 0, E: 0, VE: 0];
   readonly riskOfFire: readonly [VH: 0, H: 0, N: 0, E: 0, VE: 0];
@@ -511,17 +528,24 @@ export interface SpaciousResidence extends House {
   readonly riskOfCrimeIncrement: readonly [VH: 0, H: 0, N: 0, E: 0, VE: 0];
   readonly riskOfDisease: readonly [VH: 0, H: 0, N: 0, E: 0, VE: 0];
   readonly riskOfMalaria: readonly [VH: 0, H: 0, N: 0, E: 0, VE: 0];
+
+  readonly images: readonly [string, string?];
 }
+/* ============================================================= */
 
 export interface ElegantResidence extends House {
+  readonly typeId: string;
   readonly type: string;
+  readonly size: SizeBigHouse;
+  readonly pop: number;
+
   readonly needDesirability: DifficultyArray;
   readonly needEntertainment: DifficultyArray;
   readonly needServices: ElegantResidenceNeeds;
 
   readonly prosperity: DifficultyArray;
   readonly taxRateMultiplier: DifficultyArray;
-  readonly desirability: Desirability;
+  readonly desirability: BuildingType['desirability'];
 
   readonly devolveDesirability: readonly [VH: 0, H: 0, N: 0, E: 0, VE: 0];
   readonly riskOfFire: readonly [VH: 0, H: 0, N: 0, E: 0, VE: 0];
@@ -529,17 +553,23 @@ export interface ElegantResidence extends House {
   readonly riskOfCrimeIncrement: readonly [VH: 0, H: 0, N: 0, E: 0, VE: 0];
   readonly riskOfDisease: readonly [VH: 0, H: 0, N: 0, E: 0, VE: 0];
   readonly riskOfMalaria: readonly [VH: 0, H: 0, N: 0, E: 0, VE: 0];
+
+  readonly images: readonly [string, string?];
 }
 
 export interface FancyResidence extends House {
+  readonly typeId: string;
   readonly type: string;
+  readonly size: SizeBigHouse;
+  readonly pop: number;
+
   readonly needDesirability: DifficultyArray;
   readonly needEntertainment: DifficultyArray;
   readonly needServices: FancyResidenceNeeds;
 
   readonly prosperity: DifficultyArray;
   readonly taxRateMultiplier: DifficultyArray;
-  readonly desirability: Desirability;
+  readonly desirability: BuildingType['desirability'];
 
   readonly devolveDesirability: readonly [VH: 0, H: 0, N: 0, E: 0, VE: 0];
   readonly riskOfFire: readonly [VH: 0, H: 0, N: 0, E: 0, VE: 0];
@@ -547,6 +577,8 @@ export interface FancyResidence extends House {
   readonly riskOfCrimeIncrement: readonly [VH: 0, H: 0, N: 0, E: 0, VE: 0];
   readonly riskOfDisease: readonly [VH: 0, H: 0, N: 0, E: 0, VE: 0];
   readonly riskOfMalaria: readonly [VH: 0, H: 0, N: 0, E: 0, VE: 0];
+
+  readonly images: readonly [string, string?];
 }
 
 // interface Manor extends House {
