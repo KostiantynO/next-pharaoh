@@ -506,33 +506,38 @@ export interface CommonResidence extends House {
 }
 /* ============================================================= */
 
-// - [ ] Spacious Residence
+// - [x] Spacious Residence
 /* ============================================================= */
 export interface SpaciousResidence extends House {
-  readonly typeId: string;
-  readonly type: string;
-  readonly size: SizeBigHouse;
-  readonly pop: number;
+  readonly typeId: '21'; // +
+  readonly type: 'Spacious Residence'; // +
+  readonly size: SizeBigHouse; // +
+  readonly pop: 84; // +
 
-  readonly needDesirability: DifficultyArray;
-  readonly needEntertainment: DifficultyArray;
-  readonly needServices: SpaciousResidenceNeeds;
+  readonly needDesirability: readonly [VH: 41, H: 40, N: 40, E: 38, VE: 37]; // +
+  readonly needEntertainment: readonly [VH: 45, H: 40, N: 35, E: 30, VE: 25]; // +
+  readonly needServices: SpaciousResidenceNeeds; // +
 
-  readonly prosperity: DifficultyArray;
-  readonly taxRateMultiplier: DifficultyArray;
-  readonly desirability: BuildingType['desirability'];
+  readonly prosperity: readonly [VH: 65, H: 70, N: 70, E: 80, VE: 90]; // +
+  readonly taxRateMultiplier: readonly [VH: 3, H: 3, N: 3, E: 4, VE: 5]; // +
+  readonly desirability: DesirabilityNeutral; // +
 
-  readonly devolveDesirability: readonly [VH: 0, H: 0, N: 0, E: 0, VE: 0];
-  readonly riskOfFire: readonly [VH: 0, H: 0, N: 0, E: 0, VE: 0];
-  readonly riskOfCrimeBase: readonly [VH: 0, H: 0, N: 0, E: 0, VE: 0];
-  readonly riskOfCrimeIncrement: readonly [VH: 0, H: 0, N: 0, E: 0, VE: 0];
-  readonly riskOfDisease: readonly [VH: 0, H: 0, N: 0, E: 0, VE: 0];
-  readonly riskOfMalaria: readonly [VH: 0, H: 0, N: 0, E: 0, VE: 0];
+  readonly devolveDesirability: readonly [VH: 37, H: 36, N: 36, E: 34, VE: 33]; // +
+  readonly riskOfFire: readonly [VH: 30, H: 24, N: 20, E: 17, VE: 4]; // +
+  readonly riskOfCrimeBase: readonly [VH: 20, H: 15, N: 12, E: 8, VE: 1]; // +
+  readonly riskOfCrimeIncrement: readonly [VH: 25, H: 19, N: 13, E: 9, VE: 0]; // +
+  readonly riskOfDisease: readonly [VH: 0, H: -20, N: -40, E: -50, VE: -130]; // +
+  readonly riskOfMalaria: readonly [VH: 0, H: -20, N: -40, E: -50, VE: -130]; // +
 
-  readonly images: readonly [string, string?];
+  readonly images: readonly [
+    '/house/spacious-residence-2x2a.webp',
+    '/house/spacious-residence-2x2b.webp',
+  ]; // +
 }
 /* ============================================================= */
 
+// - [ ] Elegant Residence
+/* ============================================================= */
 export interface ElegantResidence extends House {
   readonly typeId: string;
   readonly type: string;
@@ -556,7 +561,9 @@ export interface ElegantResidence extends House {
 
   readonly images: readonly [string, string?];
 }
+/* ============================================================= */
 
+/* ============================================================= */
 export interface FancyResidence extends House {
   readonly typeId: string;
   readonly type: string;
@@ -580,11 +587,13 @@ export interface FancyResidence extends House {
 
   readonly images: readonly [string, string?];
 }
+/* ============================================================= */
 
 // interface Manor extends House {
 //   '3x3': House;
 // }
 
+/* ============================================================= */
 export interface CommonManor extends House {
   readonly type: string;
   readonly needDesirability: DifficultyArray;
@@ -602,7 +611,9 @@ export interface CommonManor extends House {
   readonly riskOfDisease: readonly [VH: 0, H: 0, N: 0, E: 0, VE: 0];
   readonly riskOfMalaria: readonly [VH: 0, H: 0, N: 0, E: 0, VE: 0];
 }
+/* ============================================================= */
 
+/* ============================================================= */
 export interface SpaciousManor extends House {
   readonly type: string;
   readonly needDesirability: DifficultyArray;
@@ -620,7 +631,9 @@ export interface SpaciousManor extends House {
   readonly riskOfDisease: readonly [VH: 0, H: 0, N: 0, E: 0, VE: 0];
   readonly riskOfMalaria: readonly [VH: 0, H: 0, N: 0, E: 0, VE: 0];
 }
+/* ============================================================= */
 
+/* ============================================================= */
 export interface ElegantManor extends House {
   readonly type: string;
   readonly needDesirability: DifficultyArray;
@@ -638,7 +651,9 @@ export interface ElegantManor extends House {
   readonly riskOfDisease: readonly [VH: 0, H: 0, N: 0, E: 0, VE: 0];
   readonly riskOfMalaria: readonly [VH: 0, H: 0, N: 0, E: 0, VE: 0];
 }
+/* ============================================================= */
 
+/* ============================================================= */
 export interface StatelyManor extends House {
   readonly type: string;
   readonly needDesirability: DifficultyArray;
@@ -656,11 +671,13 @@ export interface StatelyManor extends House {
   readonly riskOfDisease: readonly [VH: 0, H: 0, N: 0, E: 0, VE: 0];
   readonly riskOfMalaria: readonly [VH: 0, H: 0, N: 0, E: 0, VE: 0];
 }
+/* ============================================================= */
 
 // interface Estate extends House {
 //   '4x4': House;
 // }
 
+/* ============================================================= */
 export interface ModestEstate extends House {
   readonly type: string;
   readonly needDesirability: DifficultyArray;
@@ -678,8 +695,10 @@ export interface ModestEstate extends House {
   readonly riskOfDisease: readonly [VH: 0, H: 0, N: 0, E: 0, VE: 0];
   readonly riskOfMalaria: readonly [VH: 0, H: 0, N: 0, E: 0, VE: 0];
 }
+/* ============================================================= */
 
 // - [ ] Palatial estate
+/* ============================================================= */
 export interface PalatialEstate extends House {
   readonly type: string;
   readonly needDesirability: DifficultyArray;
@@ -697,3 +716,4 @@ export interface PalatialEstate extends House {
   readonly riskOfDisease: readonly [VH: 0, H: 0, N: 0, E: 0, VE: 0];
   readonly riskOfMalaria: readonly [VH: 0, H: 0, N: 0, E: 0, VE: 0];
 }
+/* ============================================================= */
