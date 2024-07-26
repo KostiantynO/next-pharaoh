@@ -536,33 +536,38 @@ export interface SpaciousResidence extends House {
 }
 /* ============================================================= */
 
-// - [ ] Elegant Residence
+// - [x] Elegant Residence
 /* ============================================================= */
 export interface ElegantResidence extends House {
-  readonly typeId: string;
-  readonly type: string;
-  readonly size: SizeBigHouse;
-  readonly pop: number;
+  readonly typeId: '22'; // +
+  readonly type: 'Elegant Residence'; // +
+  readonly size: SizeBigHouse; // +
+  readonly pop: 88; // +
 
-  readonly needDesirability: DifficultyArray;
-  readonly needEntertainment: DifficultyArray;
-  readonly needServices: ElegantResidenceNeeds;
+  readonly needDesirability: readonly [VH: 50, H: 48, N: 48, E: 46, VE: 45]; // +
+  readonly needEntertainment: readonly [VH: 50, H: 45, N: 40, E: 35, VE: 30]; // +
+  readonly needServices: ElegantResidenceNeeds; // +
 
-  readonly prosperity: DifficultyArray;
-  readonly taxRateMultiplier: DifficultyArray;
-  readonly desirability: BuildingType['desirability'];
+  readonly prosperity: readonly [VH: 70, H: 75, N: 80, E: 90, VE: 100]; // +
+  readonly taxRateMultiplier: readonly [VH: 3, H: 4, N: 4, E: 5, VE: 6]; // +
+  readonly desirability: readonly [D1: 1, D2: 1, D3: 0, D4: 0, D5: 0, D6: 0]; // +
 
-  readonly devolveDesirability: readonly [VH: 0, H: 0, N: 0, E: 0, VE: 0];
-  readonly riskOfFire: readonly [VH: 0, H: 0, N: 0, E: 0, VE: 0];
-  readonly riskOfCrimeBase: readonly [VH: 0, H: 0, N: 0, E: 0, VE: 0];
-  readonly riskOfCrimeIncrement: readonly [VH: 0, H: 0, N: 0, E: 0, VE: 0];
-  readonly riskOfDisease: readonly [VH: 0, H: 0, N: 0, E: 0, VE: 0];
-  readonly riskOfMalaria: readonly [VH: 0, H: 0, N: 0, E: 0, VE: 0];
+  readonly devolveDesirability: readonly [VH: 45, H: 43, N: 43, E: 41, VE: 40]; // +
+  readonly riskOfFire: readonly [VH: 22, H: 18, N: 15, E: 12, VE: 3]; // +
+  readonly riskOfCrimeBase: readonly [VH: 15, H: 10, N: 8, E: 5, VE: 1]; // +
+  readonly riskOfCrimeIncrement: readonly [VH: 23, H: 17, N: 11, E: 8, VE: 0]; // +
+  readonly riskOfDisease: readonly [VH: -10, H: -30, N: -50, E: -60, VE: -130]; // +
+  readonly riskOfMalaria: readonly [VH: -10, H: -30, N: -50, E: -60, VE: -130]; // +
 
-  readonly images: readonly [string, string?];
+  readonly images: readonly [
+    '/house/elegant-residence-2x2a.webp',
+    '/house/elegant-residence-2x2b.webp',
+  ]; // +
 }
+
 /* ============================================================= */
 
+// - [ ] Fancy Residence
 /* ============================================================= */
 export interface FancyResidence extends House {
   readonly typeId: string;
