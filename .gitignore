@@ -35,4 +35,5 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-/src/types/buildings/help-0.txt
+src/types/buildings/help-0.txt
+src/types/buildings/help.md

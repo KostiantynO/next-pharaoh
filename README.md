@@ -245,8 +245,17 @@ pnpm add -D @types/three # 402 MB (421,849,020 bytes)
         - [ ] Singer
     - [ ] Buildings purpose system
       - [ ] Housing (one house)
-        - [ ] Meager shanty
-        - [ ] Modest homestead
+        - [x] Crude Hut
+        - [x] Sturdy Hut
+        - [x] Meager Shanty
+        - [x] Common Shanty
+        - [x] Rough Cottage
+        - [x] Ordinary Cottage
+        - [x] Modest Homestead
+        - [x] Spacious Homestead
+        - [x] Modest Apartment
+        - [x] Spacious Apartment
+        - [ ] Common Residence
         - [ ] Palatial estate
       - [ ] Religion
         - [ ] Temple to Bast (Home)
