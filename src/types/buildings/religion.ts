@@ -9,31 +9,31 @@ export interface Temple extends WorkPlace {
 }
 // - [ ] Temple to Bast (Home)
 export interface TempleOfBast extends Temple {
-  readonly typeId: '5';
+  readonly typeId: '34';
   readonly type: 'Temple of Bast';
   readonly images: readonly ['/religion/temple-of-bast.webp'];
 }
 // - [ ] Temple to Ra (Kingdom)
 export interface TempleOfRa extends Temple {
-  readonly typeId: '6';
+  readonly typeId: '35';
   readonly type: 'Temple of Ra';
   readonly images: readonly ['/religion/temple-of-ra.webp'];
 }
 // - [ ] Temple to Osiris (Nile)
 export interface TempleOfOsiris extends Temple {
-  readonly typeId: '7';
+  readonly typeId: '36';
   readonly type: 'Temple of Osiris';
   readonly images: readonly ['/religion/temple-of-osiris.webp'];
 }
 // - [ ] Temple to Seth (War)
 export interface TempleOfSeth extends Temple {
-  readonly typeId: '8';
+  readonly typeId: '37';
   readonly type: 'Temple of Seth';
   readonly images: readonly ['/religion/temple-of-seth.webp'];
 }
 // - [ ] Temple to Ptah (Production)
 export interface TempleOfPtah extends Temple {
-  readonly typeId: '9';
+  readonly typeId: '38';
   readonly type: 'Temple of Ptah';
   readonly images: readonly ['/religion/temple-of-ptah.webp'];
 }

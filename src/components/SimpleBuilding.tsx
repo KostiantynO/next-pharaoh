@@ -16,7 +16,7 @@ const SimpleBuildingMeshMemo = ({
     return (
       <mesh position={coordinate} rotation={[0, Math.PI / 4, 0]}>
         <planeGeometry args={[size[0], size[2]]} />
-        <meshBasicMaterial attach="material" map={texture} transparent />
+        <meshBasicMaterial attach="material" map={texture} transparent alphaTest={0.5} />
       </mesh>
     );
   }, [coordinate, size, texture]);

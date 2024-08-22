@@ -2,7 +2,7 @@ import type { SizeSmallHouse, WorkPlace } from './common';
 
 // - [ ] Firehouse
 export interface Firehouse extends WorkPlace {
-  readonly typeId: '1';
+  readonly typeId: '30';
   readonly type: 'Firehouse';
   readonly size: SizeSmallHouse;
   readonly employees: 6;
@@ -15,7 +15,7 @@ export interface Firehouse extends WorkPlace {
 
 // - [ ] Architect’s Post
 export interface ArchitectsPost extends WorkPlace {
-  readonly typeId: '2';
+  readonly typeId: '31';
   readonly type: 'Architect’s Post';
   readonly size: SizeSmallHouse;
   readonly employees: 5;

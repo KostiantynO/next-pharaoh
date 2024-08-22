@@ -40,6 +40,25 @@ export interface Store extends State, Actions {}
 
 export interface GameStore extends UseBoundStore<StoreApi<Store>> {}
 
+const increaseYCoordinate = (
+  height: number,
+  newX: number,
+  newY: number,
+  newZ: number
+) => {
+  let newCoordinate: Coordinate = [0, 0, 0];
+
+  if (height === 1) {
+    newCoordinate = [newX, newY + 0.5, newZ];
+  } else if (height === 2) {
+    newCoordinate = [newX, newY + 1, newZ];
+  } else if (height === 4) {
+    newCoordinate = [newX, newY + 1.5, newZ];
+  }
+
+  return newCoordinate;
+};
+
 let buildingIds = 0;
 
 const getRay = ({
@@ -66,13 +85,13 @@ const getRay = ({
   raycaster.setFromCamera(mouse, camera);
 
   const intersects = raycaster.intersectObjects(scene.children);
-  console.log(intersects);
-  if (!intersects.length) return;
-  const [{ point }] = intersects;
 
-  const x = Math.floor(point.x);
+  if (!intersects.length) return;
+  const { point } = intersects[0];
+
+  const x = Math.floor(point.x) + 0.5;
   const y = 0;
-  const z = Math.floor(point.z);
+  const z = Math.floor(point.z) + 0.5;
 
   const newId = `${buildingIds++}`;
 
@@ -121,30 +140,43 @@ export const createGameStore = (initialState: State): GameStore =>
       const newY = coordinate[1];
       const newZ = coordinate[2];
 
+      const width = size[0];
+      const depth = size[2];
+
       const { buildings } = get();
 
-      const isExisting: boolean = buildings.ids
+      const isOccupied: boolean = buildings.ids
         .map(id => {
           const building = buildings.entities[id];
           if (!building) return;
-          const existingX = building.coordinate[0];
-          const existingY = building.coordinate[1];
-          const existingZ = building.coordinate[2];
 
-          if (existingX === newX && existingY === newY && existingZ === newZ) return true;
+          const existingX = building.coordinate[0];
+          const existingZ = building.coordinate[2];
+          if (existingX === newX && existingZ === newZ) return true;
+
+          const buildingWidth = building.size[0];
+          const buildingDepth = building.size[1];
+
+          const isNewWidthLargerThanExistingX = newX + width <= existingX;
+          const isNewXBiggerThanExistingWidth = newX >= existingX + buildingWidth;
+          const isNewDepthLessThanExistingZ = newZ + depth <= existingZ;
+          const isNewZBiggerThanExistingDepth = newZ >= existingZ + buildingDepth;
+
+          return !(
+            isNewWidthLargerThanExistingX ||
+            isNewXBiggerThanExistingWidth ||
+            isNewDepthLessThanExistingZ ||
+            isNewZBiggerThanExistingDepth
+          );
         })
         .some(Boolean);
 
-      if (isExisting) {
+      if (isOccupied) {
         console.log(`Place at ${coordinate.toString()} is already occupied`);
         return;
       }
 
-      let newCoordinate: Coordinate = coordinate;
-
-      if (type === 'Temple of Bast') {
-        newCoordinate = [newX, newY + 1, newZ];
-      }
+      const newCoordinate = increaseYCoordinate(size[1], newX, newY, newZ);
 
       const newBuilding: Building = {
         buildingId,

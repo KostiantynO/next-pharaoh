@@ -1,7 +1,7 @@
 'use client';
 import { OrbitControls } from '@react-three/drei';
 import { Canvas } from '@react-three/fiber';
-import { useRef } from 'react';
+import { useCallback, useRef } from 'react';
 
 import { GRID_SIZE } from '@/config/config';
 import { useSelectBuildings, useSelectDataForCanvas } from '@/stores/selectors';
@@ -32,11 +32,14 @@ export const GameCanvas = () => {
   const cameraRef = useRef<Camera | null>(null);
   const sceneRef = useRef<Scene | null>(null);
 
-  const onCanvasClick = (e: ClickOnCanvas) => {
-    if (!cameraRef.current || !sceneRef.current) return;
+  const onCanvasClick = useCallback(
+    (e: ClickOnCanvas) => {
+      if (!cameraRef.current || !sceneRef.current) return;
 
-    addBuilding(e, cameraRef.current, sceneRef.current);
-  };
+      addBuilding(e, cameraRef.current, sceneRef.current);
+    },
+    [addBuilding]
+  );
 
   return (
     <div className="absolute bottom-0 h-[calc(100%-24px)] w-full">
@@ -53,7 +56,7 @@ export const GameCanvas = () => {
         <ambientLight intensity={1} />
         <pointLight position={[10, 10, 10]} />
 
-        <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -0.5, 0]}>
+        <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0, 0]}>
           <planeGeometry args={[GRID_SIZE, GRID_SIZE]} />
           <meshStandardMaterial color="green" />
         </mesh>

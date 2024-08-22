@@ -1,8 +1,8 @@
-import type { SizeSmallHouse, SizeWaterSupply, WorkPlace } from './common';
+import type { SizeBigHouse, SizeSmallHouse, WorkPlace } from './common';
 
 // - [ ] Well
 export interface Well extends WorkPlace {
-  readonly typeId: '4';
+  readonly typeId: '32';
   readonly type: 'Well';
   readonly size: SizeSmallHouse;
   readonly employees: 0;
@@ -13,9 +13,9 @@ export interface Well extends WorkPlace {
 
 // - [ ] Water Supply
 export interface WaterSupply extends WorkPlace {
-  readonly typeId: '3';
+  readonly typeId: '33';
   readonly type: 'Water Supply';
-  readonly size: SizeWaterSupply;
+  readonly size: SizeBigHouse;
   readonly employees: 5;
   readonly cost: readonly [75, 60, 50, 40, 10];
   readonly desirability: readonly [4, 3, 2, 1, 0, 0];
