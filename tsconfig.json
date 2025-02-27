@@ -27,6 +27,7 @@
     "prettier.config.mjs",
     ".eslintrc.cjs",
     "next-env.d.ts",
+    "postcss.config.mjs",
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts"
