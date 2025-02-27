@@ -1,5 +1,4 @@
 'use client';
-
 import { useSelectTime } from '@/stores/selectors';
 
 export const TimeIndicator = () => {

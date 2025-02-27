@@ -23,11 +23,12 @@ export const ConstructionButton = ({
   return (
     <button
       type="button"
-      className={`border border-red-50 px-4 py-2 ${isActive ? 'bg-yellow-300' : ''}`}
+      className={`flex items-center justify-center border border-red-50 p-1 ${isActive ? 'bg-yellow-300' : ''}`}
       onClick={chooseTypeToBuild}
+      title={type}
     >
-      {type}
-      <img src={img} />
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img src={img} alt={type} />
     </button>
   );
 };

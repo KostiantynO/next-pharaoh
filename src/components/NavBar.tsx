@@ -1,5 +1,4 @@
 'use client';
-
 import { useCallback } from 'react';
 
 import { useSelectRotateCamera } from '@/stores/selectors';

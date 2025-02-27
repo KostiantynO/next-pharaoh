@@ -1,32 +1,14 @@
 'use client';
-import { OrbitControls } from '@react-three/drei';
 import { Canvas } from '@react-three/fiber';
 import { useCallback, useRef } from 'react';
 
-import { GRID_SIZE } from '@/config/config';
-import { useSelectBuildings, useSelectDataForCanvas } from '@/stores/selectors';
-
-import { FixedAngleCamera } from './FixedAngleCamera';
-import { SimpleBuilding } from './SimpleBuilding';
+import { useSelectDataForCanvas } from '@/stores/selectors';
 
 import type { ClickOnCanvas } from '@/types/interactions';
+import type { ReactNode } from 'react';
 import type { Camera, Scene } from 'three';
 
-export const Buildings = () => {
-  const buildings = useSelectBuildings();
-
-  return (
-    <>
-      {buildings.ids.map(buildingId => {
-        const building = buildings.entities[buildingId];
-        if (!building) return null;
-        return <SimpleBuilding key={buildingId} buildingId={buildingId} />;
-      })}
-    </>
-  );
-};
-
-export const GameCanvas = () => {
+export const GameCanvas = ({ children }: { children: ReactNode }) => {
   const { isSidebarOpen, addBuilding } = useSelectDataForCanvas();
 
   const cameraRef = useRef<Camera | null>(null);
@@ -53,17 +35,7 @@ export const GameCanvas = () => {
           sceneRef.current = scene;
         }}
       >
-        <ambientLight intensity={1} />
-        <pointLight position={[10, 10, 10]} />
-
-        <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0, 0]}>
-          <planeGeometry args={[GRID_SIZE, GRID_SIZE]} />
-          <meshStandardMaterial color="green" />
-        </mesh>
-
-        <Buildings />
-        <FixedAngleCamera />
-        <OrbitControls />
+        {children}
       </Canvas>
     </div>
   );
