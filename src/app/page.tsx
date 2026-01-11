@@ -1,3 +1,4 @@
+// src\app\page.tsx
 import { CanvasContent } from '@/components/CanvasContent';
 import { GameCanvas } from '@/components/GameCanvas';
 import { NavBar } from '@/components/NavBar';

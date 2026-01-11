@@ -1,5 +1,5 @@
+// src\types\common.ts
 export type IsometricAngles = 0 | 90 | 180 | 270;
-export type TripleNumber = readonly [number, number, number];
 
 export type Desirability = readonly [
   D1: number,

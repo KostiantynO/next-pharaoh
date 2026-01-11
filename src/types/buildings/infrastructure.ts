@@ -1,3 +1,4 @@
+// src\types\buildings\infrastructure.ts
 import type { SizeSmallHouse, WorkPlace } from './common';
 
 // - [ ] Firehouse

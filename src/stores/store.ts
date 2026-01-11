@@ -1,3 +1,4 @@
+// src\stores\store.ts
 import { Raycaster, Vector2 } from 'three';
 import { create } from 'zustand';
 

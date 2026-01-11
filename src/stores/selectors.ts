@@ -1,3 +1,4 @@
+// src\stores\selectors.ts
 import { useGameStore } from '@/providers/StoreProvider';
 
 import type { Store } from '@/stores/store';

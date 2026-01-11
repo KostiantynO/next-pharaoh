@@ -1,3 +1,4 @@
+// src\components\CanvasContent.tsx
 'use client';
 import { OrbitControls } from '@react-three/drei';
 
@@ -5,9 +6,9 @@ import { Background } from './Background';
 import { Buildings } from './Buildings';
 import { FixedAngleCamera } from './FixedAngleCamera';
 
-import type { TripleNumber } from '@/types/common';
+import type { Vector3 } from '@react-three/fiber';
 
-const pointLightPosition: TripleNumber = [10, 10, 10];
+const pointLightPosition: Vector3 = [10, 10, 10];
 
 export const CanvasContent = () => {
   return (

@@ -1,3 +1,4 @@
+// src\types\buildings\common.ts
 import type { Desirability, DifficultyArray, Entities, Ids } from '../common';
 
 export type Size = readonly [width: number, height: number, depth: number];
