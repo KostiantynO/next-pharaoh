@@ -6,7 +6,7 @@ import { memo } from 'react';
 import { Background } from './Background';
 import { Buildings } from './Buildings';
 import { FixedAngleCamera } from './FixedAngleCamera';
-import { GridCoordinatesOnMap } from './GridCoordinates';
+// import { GridCoordinatesOnMap } from './GridCoordinates';
 
 import type { Vector3 } from '@react-three/fiber';
 
@@ -16,10 +16,10 @@ export const CanvasContentMemo = () => {
   return (
     <>
       <ambientLight intensity={1} />
-      <pointLight position={pointLightPosition} />
+      {/* <pointLight position={pointLightPosition} /> */}
 
       <Background />
-      <GridCoordinatesOnMap size={50} />
+      {/* <GridCoordinatesOnMap size={50} /> */}
 
       <Buildings />
       <FixedAngleCamera />
