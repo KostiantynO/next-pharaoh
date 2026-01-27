@@ -17,7 +17,7 @@ pnpm add -D @types/three # 402 MB (421,849,020 bytes)
     `Answer`: I want to make it similar to original Pharaoh, but on web. Because it is
     simple game by its nature. The are no fancy 3D stuff. It is mostly static buildings,
     roads, grass, trees. But some parts are dynamic - like mobile military units, roaming
-    wild animals, birds, crocs, hyppos, emigrants and immigrants, citizens. The setting
+    wild animals, birds, crocs, hippos, emigrants and immigrants, citizens. The setting
     takes place in early Egypt, where you build Pyramids and you help Pharaoh to build a
     great country with beautiful and rich cities by governing each city development in its
     own mission (scenario/map).
@@ -66,6 +66,20 @@ pnpm add -D @types/three # 402 MB (421,849,020 bytes)
     citizen by roads may randomly change to turn left or right when this citizen
     encounters a crossroad sign on the road).
 
+    - Edit: 2026-01-18 05:09
+
+      Fixed timestep is a MUST:
+
+      - Simulation runs in fixed delta
+      - Rendering interpolates if needed
+      - Never simulate with variable delta
+
+      Rules:
+
+      - Events are queued, never processed immediately
+      - Events emitted in tick N are processed `after` all systems for tick N
+      - No event is allowed to mutate the world mid-system
+
 - Assets and Models:
 
   - Have you prepared or chosen any 3D models or assets for your game, or are you planning
@@ -81,6 +95,25 @@ pnpm add -D @types/three # 402 MB (421,849,020 bytes)
     not know how I will find them, or generate them. Maybe I will use some
     creative-commons and free pictures for textures.
 
+    - Edit: 2026-01-17 23:17, I want to make 3D objects imitation, with 6 sides static
+      images. Covering 360° view of the building.
+
+      I don't want full 3D specifically. I want simple, abstract, pretty, light, `sexy`
+      graphics. Same as in `Magic survival` android game, but a little more details for
+      buildings and villagers, same as original Pharaoh :D Not heavy full 3D models.
+
+      [ ] Very rare, occasional moon walk :D (initially, just glitch).
+
+      [ ] After all optimizations are done. I will make an actual leg slide sprite :D Like,
+      if vill was on map for 5 minutes, then randomly, 1 in an 100 seconds, they will moonwalk,
+      for say 5 secs... :D Only some vills can learn this skill. Which brings me an idea :D
+
+      [ ] add rpg elements - vills learning skills :D By earning xp???
+
+      [ ] Do in-game vills also die? As an offset for `perfectly balanced` skill-advantage?
+      :] In original Pharaoh, vills also died, but you can see this only in demographics bar
+      chart page
+
 - Interaction and Controls:
 
   - How do you envision player interaction with the game world?
@@ -90,50 +123,51 @@ pnpm add -D @types/three # 402 MB (421,849,020 bytes)
   - Are there specific controls or interactions you want to implement?
 
   `Answer`: You press a button to quickly select building type. Then you hover your mouse
-  on the place where you want to build it. You click left mouse button and building will
-  be build there after some short time. So this is mainly a desktop game. But it will be
-  possible to play it on tablet I think too.
+  on the place where you want to build it. You click `LMB`(left mouse button) and building
+  will be build there after some short time. So this is mainly a desktop game. But it will
+  be possible to play it on tablet I think too.
 
 - UI and State Management:
 
   - How are you planning to handle game state and UI elements?
 
-  `Answer`: For 'global' app state I will be using `zustand`, but since it is Next.js 14
-  also, app will be initially server rendered and them hydrated on the client, so it will
-  take over the canvas stuff and 'use client' components. For local state it is possible
-  to use `useState` and `useRef` hooks, but I didn't need them for now. I only have state
-  in my 'local per request' zustand store, which created for each new request to the
-  server, no global zustand store, but all app can access hydrated zustand store on the
-  client.
+    `Answer`: For 'global' app state I will be using `zustand`, but since it is Next.js 14
+    also, app will be initially server rendered and then hydrated on the client, so it
+    will take over the canvas stuff and 'use client' components. For local state it is
+    possible to use `useState` and `useRef` hooks, but I didn't need them for now. I only
+    have state in my 'local per request' zustand store, which created for each new request
+    to the server, no global zustand store, but all app can access hydrated zustand store
+    on the client.
+
+    - Edit: 2026-01-17 01:42 23:17
+
+      We need to update our mental model for state handling:
+      [r3f lerp + useFrame](https://r3f.docs.pmnd.rs/advanced/pitfalls#%E2%9C%85-use-lerp-+-useframe)
+
+    ```tsx
+    const ref = useRef(null);
+    useFrame(() => (ref.current.position.x = api.getState().x));
+    return <mesh ref={ref} />;
+    ```
+
+    - [Edit: 2026-01-18 04:17](/md/ai-convo.md)
 
   - Are there complex UI components or interactions you need to integrate?
 
-  `Answer`: YES! CANVAS! IT IS THE MOST COMPLEX UI component you can imagine :) And player
-  interactions with it are crucial for the game! Player should be able to click on sidebar
-  (virtual inside canvas, or real inside html) and select a building type he wants to
-  build, then player hovers over then canvas and clicks LMB(left mouse button) to place a
-  building at cursor position inside canvas. I do not know how will it be best, to make
-  buttons and menus with React or all app inside one CANVAS element? Before asking your
-  help, I already tried to made a UI in react, but without canvas. It went pretty well! It
-  was like shell over the canvas, TopNavBar with dropdown menus, and Sidebar (left or
-  right by choice), where you can select a type of building to building on the map. But I
-  didn't get a chance to draw anything on canvas, nor did I integrated anything from
-  `UI -> click -> draw on canvas` related. I want to make this SO MUCH! So, I want to
-  integrate a LMB click with canvas to draw buildings modes inside canvas under a cursor
-  and apply different textures to those models, depending on active selected button (type
-  of building to build).
-
-- Performance Considerations:
-
-  - Since Three.js can be quite demanding, have you thought about performance
-    optimizations, especially for a game environment?
-
-    `Answer`: Yes, I though about this! I definitely want CPU and fans of my laptop to do
-    not burn during the game process! It is essential to minimize memory, CPU and disk
-    footprint of the game! It should run smoothly at 60 fps without turning my CPU into
-    hot blast furnace! I do not know how to achieve this :D I would accept any practical
-    solution for it! Maybe use Service Workers to offload main thread? I do not know :D
-    Maybe offload canvas stuff and animations to GPU, instead of CPU?
+    `Answer`: YES! CANVAS! IT IS THE MOST COMPLEX UI component you can imagine :) And
+    player interactions with it are crucial for the game! Player should be able to click
+    on sidebar (virtual inside canvas, or real inside html) and select a building type he
+    wants to build, then player hovers over then canvas and clicks `LMB` to place a
+    building at cursor position inside canvas. I do not know how will it be best, to make
+    buttons and menus with React or all app inside one CANVAS element? Before asking your
+    help, I already tried to made a UI in react, but without canvas. It went pretty well!
+    It was like shell over the canvas, TopNavBar with dropdown menus, and Sidebar (left or
+    right by choice), where you can select a type of building to building on the map. But
+    I didn't get a chance to draw anything on canvas, nor did I integrated anything from
+    `UI -> click -> draw on canvas` related. I want to make this SO MUCH! So, I want to
+    integrate a `LMB` click with canvas to draw buildings modes inside canvas under a
+    cursor and apply different textures to those models, depending on active selected
+    button (type of building to build).
 
 - Multiplayer Considerations:
 
@@ -154,267 +188,29 @@ pnpm add -D @types/three # 402 MB (421,849,020 bytes)
 
 - Integration with Next.js:
 
-  - How are you planning to integrate Three.js with Next.js? `Answer`: Me? I do not know.
-    I though you would help me with this :D
+  - How are you planning to integrate Three.js with Next.js?
 
-  - Any specific challenges or requirements you foresee? `Answer`: MMM, yes. The challenge
-    here is that I do not know Three.js ecosystem at all. So you will be my Guide to this
-    exciting world of 2D, 2.5D and 3D stuff! :D Oh, about list of requirements, yes, I
-    have it! Please see it below:
+    `Answer`: Me? I do not know. I though you would help me with this :D
 
-10. Game requirements:
+  - Any specific challenges or requirements you foresee?
 
-    - [ ] Save/Load system
-      - [ ] save to localStorage
-      - [ ] load from localStorage
-      - [x] save to local db
-      - [ ] load from local db
-    - [ ] Time system (months, years)
-      - [ ] Track time from the game start
-      - [ ] Display time change for each month
-    - [ ] UI system
-      - [ ] Header
-      - [ ] Right Sidebar
-      - [ ] Left Sidebar
-      - [ ] Modal for messages
-      - [ ] Canvas
-        - [ ] Gradient-border
-    - [ ] Nile flood system (inundation and drought of river banks)
-    - [ ] Monuments building system (Pyramid, Obelisk, Tomb, Mastaba)
-    - [ ] Buildings construction system
-      - [ ] hover plan - must have
-      - construction progress:
-        - [ ] started
-        - [ ] ground preparation works
-        - [ ] fundament
-        - [ ] walls
-        - [ ] roof
-        - [ ] decoration and painting
-        - [ ] final touch of the master
-        - [ ] finished - must have
-      - functioning:
-        - [ ] new
-        - [ ] slightly damaged
-        - [ ] moderately damaged
-        - [ ] severely damaged
-      - destroyed
-        - [ ] debris - must have
-        - [ ] old ruins
-    - [ ] Buildings evolving/devolving system
-      - [ ] based on desirability
-      - [ ] based on access to required resources
-        - [ ] water
-        - [ ] 1st source of food
-        - [ ] pottery
-        - [ ] beer
-        - [ ] 2nd source of food
-        - [ ] 1st luxury goods
-        - [ ] 3rd source of food
-        - [ ] 2nd luxury goods
-        - [ ] physician
-        - [ ] mortuary
-        - [ ] judge
-        - [ ] booth, pavilion, bandstand
-        - [ ] pub, zoo
-    - [ ] Immigration system (kingdom road, people occupy free homes)
-    - [ ] Employment system (each building needs specific amount of workers)
-    - [ ] Trade system
-      - [ ] Open a trade routes
-      - [ ] View kingdom trade map and routes
-      - [ ] Select which goods to use, stockpile, buy or sell
-    - [ ] Roads and pathfinding for:
-      - [ ] roads construction as a building
-      - [ ] immigrants
-      - [ ] emigrants
-      - [ ] roaming people
-        - [ ] Water Carrier
-        - [ ] Fire Marshal
-        - [ ] Architect
-        - [ ] Policemen
-        - [ ] Judge
-        - [ ] Physician
-        - [ ] Apothecary
-        - [ ] Trader girl
-        - [ ] Trader boys
-        - [ ] Priests
-        - [ ] Big temple workers (Bast)
-        - [ ] Blocks carriers
-        - [ ] Farmers
-        - [ ] Juggler
-        - [ ] Dancer
-        - [ ] Singer
-    - [ ] Buildings purpose system
-      - [ ] Housing (one house)
-        - [x] Crude Hut
-        - [x] Sturdy Hut
-        - [x] Meager Shanty
-        - [x] Common Shanty
-        - [x] Rough Cottage
-        - [x] Ordinary Cottage
-        - [x] Modest Homestead
-        - [x] Spacious Homestead
-        - [x] Modest Apartment
-        - [x] Spacious Apartment
-        - [ ] Common Residence
-        - [ ] Palatial estate
-      - [ ] Religion
-        - [ ] Temple to Bast (Home)
-        - [ ] Temple to Ra (Kingdom)
-        - [ ] Temple to Osiris (Nile)
-        - [ ] Temple to Ptah (Production)
-        - [ ] Temple to Seth (War)
-      - [ ] Hygiene
-        - [ ] Well
-        - [ ] Water Supply
-        - [ ] Physician
-        - [ ] Apothecary
-        - [ ] Dentist
-        - [ ] Mortuary
-      - [ ] Infrastructure
-        - [ ] Fire station
-        - [ ] Architects post
-        - [ ] Police station
-      - [ ] ## Municipal
-        - [ ] Transport pier
-      - [ ] Food and Farming
-        - [ ] Hunter lodge
-        - [ ] Fishing wharf
-        - [ ] Cattle ranch
-      - [ ] Stock & Distribution
-        - [ ] Granary
-        - [ ] Bazaar
-        - [ ] Storage yard
-      - [ ] Raw Materials
-        - [ ] Gold mine
-        - [ ] Copper mine
-        - [ ] Sandstone quarry
-        - [ ] Clay
-        - [ ] Reed gatherer
-        - [ ] Flax farm
-        - [ ] Barley farm
-        - [ ] Pomegranate farm
-        - [ ] Corn farm
-      - [ ] Production buildings
-        - [ ] Potter
-        - [ ] Brewery
-        - [ ] Papyrus maker
-        - [ ] Wood cutter
-        - [ ] Weaver
-        - [ ] Jeweler
-        - [ ] Shipyard
-        - [ ] Blacksmith
-      - [ ] Administration
-        - [ ] Tax Collector
-        - [ ] Village Palace
-        - [ ] City Palace
-        - [ ] Personal Mansion
-      - [ ] Entertainment
-        - [ ] Juggler Booth
-        - [ ] Dance pavilion
-        - [ ] Singer's stand
-      - [ ] Beatification
-        - [ ] Park
-        - [ ] Plaza
-        - [ ] Small Statue
-        - [ ] Medium Statue
-        - [ ] Big Statue
-      - [ ] Education
-        - [ ] Scriber school
-        - [ ] Library
-      - [ ] Military Buildings
-        - [ ] recruits camp
-        - [ ] academy
-        - [ ] archers fort
-        - [ ] melee warriors fort
-        - [ ] chariots fort
-        - [ ] warship dock
-        - [ ] warship wharf
-        - [ ] guard tower
-        - [ ] stonewalls
-        - [ ] gatehouse
-      - [ ] Monuments
-        - [ ] Small Mastaba
-        - [ ] Medium Mastaba
-        - [ ] Great Mastaba
-        - [ ] Small Obelisk
-        - [ ] Medium Obelisk
-        - [ ] Big Obelisk
-        - [ ] Sphinx
-        - [ ] Small Pyramid
-        - [ ] Medium Pyramid
-        - [ ] Great Pyramid of Giza
-    - [ ] Music and sounds system
-      - [ ] resting ambient music
-      - [ ] npc normal replies
-      - [ ] npc replies based on city situation
-      - [ ] environment sounds
-        - [ ] water streams
-        - [ ] mines
-        - [ ] rubbles of rocks
-        - [ ] kingdom roads
-      - [ ] fauna sounds
-        - [ ] birds in the gardens
-        - [ ] birds in the wild planes
-        - [ ] hippopotamus growls
-        - [ ] hyena barks
-        - [ ] zebra sounds
-        - [ ] ostriches sounds
-        - [ ] crocodile sounds
-    - [ ] texture packs
-      - [ ] static
-        - [ ] buildings
-          - [ ] temples
-        - [ ] rocks
-        - [ ] monuments
-      - animated
-        - free walking people
-          - [ ] friendly
-            - [ ] immigrants
-            - [ ] emigrants
-            - [ ] trader girl
-            - [ ] small trader boys
-            - [ ] workers
-            - [ ] stonemason
-            - [ ] fire marshall
-            - [ ] architect
-            - [ ] policemen
-            - [ ] judge
-            - [ ] gold miner
-            - [ ] juggler
-            - [ ] dancer
-            - [ ] singer
-            - [ ] water carrier
-            - [ ] archer
-            - [ ] melee warrior
-            - [ ] chariot
-          - [ ] enemies
-            - [ ] thief
-            - [ ] tomb robber
-            - [ ] bedouin melee soldier
-            - [ ] bedouin archer
-            - [ ] enemy galley
-            - [ ] enemy chariot
-        - people in buildings
-          - [ ] water lifter
-    - [ ] cursor images
+    `Answer`: MMM, yes. The challenge here is that I do not know Three.js ecosystem at
+    all. So you will be my Guide to this exciting world of 2D, 2.5D and 3D stuff! :D Oh,
+    about list of requirements, yes, I have it! Please see it below:
 
-11. `Performance Considerations`
+- [`Requirements`](md/reqs.md)
 
-    - `Optimizing Performance`: Three.js provides ways to optimize rendering performance,
-      such as using instancing for repeated objects, reducing draw calls, and managing
-      textures efficiently.
-    - `Web Workers and GPU Offloading`: Consider offloading intensive tasks likephysics
-      calculations or AI to Web Workers. Three.js inherently uses WebGL for rendering,
-      which leverages GPU acceleration.
+- [`Performance`](/md/perf.md)
 
-Open [Dev](http://localhost:3000)
+  - `Optimizing Performance`: Three.js = instancing, reducing draw calls, and managing
+    textures efficiently.
+  - `Web Workers and GPU Offloading`: Consider offloading physics calc, AI to Web Workers.
+    3js uses WebGL GPU.
+  - Three.js = demanding, have you thought about game perf?
 
-- [`next/font`](https://nextjs.org/docs/basic-features/font-optimization)
-- [Next.js Docs](https://nextjs.org/docs)
-- [Next.js Learn](https://nextjs.org/learn)
-- https://github.com/vercel/next.js/
-- [Vercel](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme)
-- [Deployment](https://nextjs.org/docs/deployment)
+    `Answer`: minimize memory, CPU and disk footprint of the game! at 60 fps. I do not
+    know how to achieve this :D I would accept any practical solution for it! Maybe use
+    Service Workers to offload main thread? Or offload canvas stuff and animations to GPU,
+    instead of CPU?
 
-This is a [Next.js](https://nextjs.org/) project bootstrapped with
-[`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+- [`next.js`](/md/next.md)

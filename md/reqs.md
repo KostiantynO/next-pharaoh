@@ -1,0 +1,236 @@
+# Requirements
+
+- [ ] Save/Load system
+  - [ ] save to localStorage
+  - [ ] load from localStorage
+  - [ ] save to local db
+  - [ ] load from local db
+- [ ] Time system (months, years)
+  - [ ] Track time from the game start
+  - [ ] Display time change for each month
+- [ ] UI system
+  - [ ] Header
+  - [ ] Right Sidebar
+  - [ ] Left Sidebar
+  - [ ] Modal for messages
+  - [ ] Canvas
+    - [ ] Gradient-border
+- [ ] Nile flood system (inundation and drought of river banks)
+- [ ] Monuments building system (Pyramid, Obelisk, Tomb, Mastaba)
+- [ ] Buildings construction system
+  - [ ] hover plan - must have
+  - construction progress:
+    - [ ] started
+    - [ ] ground preparation works
+    - [ ] fundament
+    - [ ] walls
+    - [ ] roof
+    - [ ] decoration and painting
+    - [ ] final touch of the master
+    - [ ] finished - must have
+  - functioning:
+    - [ ] new
+    - [ ] slightly damaged
+    - [ ] moderately damaged
+    - [ ] severely damaged
+  - destroyed
+    - [ ] debris - must have
+    - [ ] old ruins
+- [ ] Buildings evolving/devolving system
+  - [ ] based on desirability
+  - [ ] based on access to required resources
+    - [ ] water
+    - [ ] 1st source of food
+    - [ ] pottery
+    - [ ] beer
+    - [ ] 2nd source of food
+    - [ ] 1st luxury goods
+    - [ ] 3rd source of food
+    - [ ] 2nd luxury goods
+    - [ ] physician
+    - [ ] mortuary
+    - [ ] judge
+    - [ ] booth, pavilion, bandstand
+    - [ ] pub, zoo
+- [ ] Immigration system (kingdom road, people occupy free homes)
+- [ ] Employment system (each building needs specific amount of workers)
+- [ ] Trade system
+  - [ ] Open a trade routes
+  - [ ] View kingdom trade map and routes
+  - [ ] Select which goods to use, stockpile, buy or sell
+- [ ] Roads and pathfinding for:
+  - [ ] roads construction as a building
+  - [ ] immigrants
+  - [ ] emigrants
+  - [ ] roaming people
+    - [ ] Water Carrier
+    - [ ] Fire Marshal
+    - [ ] Architect
+    - [ ] Policemen
+    - [ ] Judge
+    - [ ] Physician
+    - [ ] Apothecary
+    - [ ] Trader girl
+    - [ ] Trader boys
+    - [ ] Priests
+    - [ ] Big temple workers (Bast)
+    - [ ] Blocks carriers
+    - [ ] Farmers
+    - [ ] Juggler
+    - [ ] Dancer
+    - [ ] Singer
+- [ ] Buildings purpose system
+  - [ ] Housing (one house)
+    - [x] Crude Hut
+    - [x] Sturdy Hut
+    - [x] Meager Shanty
+    - [x] Common Shanty
+    - [x] Rough Cottage
+    - [x] Ordinary Cottage
+    - [x] Modest Homestead
+    - [x] Spacious Homestead
+    - [x] Modest Apartment
+    - [x] Spacious Apartment
+    - [ ] Common Residence
+    - [ ] Palatial estate
+  - [ ] Religion
+    - [ ] Temple to Bast (Home)
+    - [ ] Temple to Ra (Kingdom)
+    - [ ] Temple to Osiris (Nile)
+    - [ ] Temple to Ptah (Production)
+    - [ ] Temple to Seth (War)
+  - [ ] Hygiene
+    - [ ] Well
+    - [ ] Water Supply
+    - [ ] Physician
+    - [ ] Apothecary
+    - [ ] Dentist
+    - [ ] Mortuary
+  - [ ] Infrastructure
+    - [ ] Fire station
+    - [ ] Architects post
+    - [ ] Police station
+  - [ ] Municipal
+    - [ ] Transport pier
+  - [ ] Food and Farming
+    - [ ] Hunter lodge
+    - [ ] Fishing wharf
+    - [ ] Cattle ranch
+  - [ ] Stock & Distribution
+    - [ ] Granary
+    - [ ] Bazaar
+    - [ ] Storage yard
+  - [ ] Raw Materials
+    - [ ] Gold mine
+    - [ ] Copper mine
+    - [ ] Sandstone quarry
+    - [ ] Clay
+    - [ ] Reed gatherer
+    - [ ] Flax farm
+    - [ ] Barley farm
+    - [ ] Pomegranate farm
+    - [ ] Corn farm (🌽 hahaahhah :D corn farm! :D WIth lots of girls, who like to swallow
+          :D mmm, corn juice? :)
+  - [ ] Production buildings
+    - [ ] Potter (Harry? Is that you? :D)
+    - [ ] Brewery
+    - [ ] Papyrus maker
+    - [ ] Wood cutter
+    - [ ] Weaver
+    - [ ] Jeweler
+    - [ ] Shipyard
+    - [ ] Blacksmith
+  - [ ] Administration
+    - [ ] Tax Collector
+    - [ ] Village Palace
+    - [ ] City Palace
+    - [ ] Personal Mansion
+  - [ ] Entertainment
+    - [ ] Juggler Booth
+    - [ ] Dance pavilion
+    - [ ] Singer's stand
+  - [ ] Beatification
+    - [ ] Park
+    - [ ] Plaza
+    - [ ] Small Statue
+    - [ ] Medium Statue
+    - [ ] Big Statue
+  - [ ] Education
+    - [ ] Scriber school
+    - [ ] Library
+  - [ ] Military Buildings
+    - [ ] recruits camp
+    - [ ] academy
+    - [ ] archers fort
+    - [ ] melee warriors fort
+    - [ ] chariots fort
+    - [ ] warship dock
+    - [ ] warship wharf
+    - [ ] guard tower
+    - [ ] stonewalls
+    - [ ] gatehouse
+  - [ ] Monuments
+    - [ ] Small Mastaba
+    - [ ] Medium Mastaba
+    - [ ] Great Mastaba
+    - [ ] Small Obelisk
+    - [ ] Medium Obelisk
+    - [ ] Big Obelisk
+    - [ ] Sphinx
+    - [ ] Small Pyramid
+    - [ ] Medium Pyramid
+    - [ ] Great Pyramid of Giza
+- [ ] Music and sounds system
+  - [ ] resting ambient music
+  - [ ] npc normal replies
+  - [ ] npc replies based on city situation
+  - [ ] environment sounds
+    - [ ] water streams
+    - [ ] mines
+    - [ ] rubbles of rocks
+    - [ ] kingdom roads
+  - [ ] fauna sounds
+    - [ ] birds in the gardens
+    - [ ] birds in the wild planes
+    - [ ] hippopotamus growls
+    - [ ] hyena barks
+    - [ ] zebra sounds
+    - [ ] ostriches sounds
+    - [ ] crocodile sounds
+- [ ] texture packs
+  - [ ] static
+    - [ ] buildings
+      - [ ] temples
+    - [ ] rocks
+    - [ ] monuments
+  - animated
+    - free walking people
+      - [ ] friendly
+        - [ ] immigrants
+        - [ ] emigrants
+        - [ ] trader girl
+        - [ ] small trader boys
+        - [ ] workers
+        - [ ] stonemason
+        - [ ] fire marshall
+        - [ ] architect
+        - [ ] policemen
+        - [ ] judge
+        - [ ] gold miner
+        - [ ] juggler
+        - [ ] dancer
+        - [ ] singer
+        - [ ] water carrier
+        - [ ] archer
+        - [ ] melee warrior
+        - [ ] chariot
+      - [ ] enemies
+        - [ ] thief
+        - [ ] tomb robber
+        - [ ] bedouin melee soldier
+        - [ ] bedouin archer
+        - [ ] enemy galley
+        - [ ] enemy chariot
+    - people in buildings
+      - [ ] water lifter
+- [ ] cursor images
