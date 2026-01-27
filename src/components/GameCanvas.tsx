@@ -1,12 +1,12 @@
 // src\components\GameCanvas.tsx
 'use client';
 import { Canvas } from '@react-three/fiber';
-import { useCallback, useRef } from 'react';
+import { memo, useCallback, useRef } from 'react';
 
 import { useSelectDataForCanvas } from '@/stores/selectors';
 
 import type { ClickOnCanvas } from '@/types/interactions';
-import type { Dpr } from '@react-three/fiber';
+import type { Dpr, RootState } from '@react-three/fiber';
 import type { ReactNode } from 'react';
 import type { Camera, Scene } from 'three';
 
@@ -26,7 +26,7 @@ const cameraConfig: CameraConfig = {
   position: [10, 10, 10],
 };
 
-export const GameCanvas = ({ children }: { children: ReactNode }) => {
+const GameCanvasMemo = ({ children }: { children: ReactNode }) => {
   const { isSidebarOpen, addBuilding } = useSelectDataForCanvas();
 
   const cameraRef = useRef<Camera | null>(null);
@@ -41,6 +41,13 @@ export const GameCanvas = ({ children }: { children: ReactNode }) => {
     [addBuilding]
   );
 
+  const onCanvasCreated = useCallback(({ scene, camera }: RootState) => {
+    cameraRef.current = camera;
+    sceneRef.current = scene;
+  }, []);
+
+  const shrinkIfSideBarOpen = isSidebarOpen ? `w-[calc(100%-300px)]` : 'w-full';
+
   return (
     <div className="absolute bottom-0 h-[calc(100%-24px)] w-full">
       <Canvas
@@ -48,15 +55,14 @@ export const GameCanvas = ({ children }: { children: ReactNode }) => {
         dpr={devicePixelRatio}
         frameloop="demand"
         camera={cameraConfig}
-        className={`isolate bg-slate-600 contain-strict ${isSidebarOpen ? `w-[calc(100%-300px)]` : 'w-full'}`}
+        className={`isolate bg-slate-600 contain-strict ${shrinkIfSideBarOpen}`}
         onClick={onCanvasClick}
-        onCreated={({ scene, camera }) => {
-          cameraRef.current = camera;
-          sceneRef.current = scene;
-        }}
+        onCreated={onCanvasCreated}
       >
         {children}
       </Canvas>
     </div>
   );
 };
+
+export const GameCanvas = memo(GameCanvasMemo);

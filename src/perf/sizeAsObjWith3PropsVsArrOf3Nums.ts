@@ -1,3 +1,4 @@
+// src\perf\sizeAsObjWith3PropsVsArrOf3Nums.ts
 type SizeArr = [3, 3, 4];
 interface SizeObj {
   width: 3;

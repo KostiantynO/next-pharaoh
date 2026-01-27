@@ -1,5 +1,5 @@
 // src\types\buildings\common.ts
-import type { Desirability, DifficultyArray, Entities, Ids } from '../common';
+import type { Desirability, DifficultyArray, Entities, Entity, Ids } from '../common';
 
 export type Size = readonly [width: number, height: number, depth: number];
 export type Coordinate = readonly [x: number, y: number, z: number];
@@ -43,7 +43,4 @@ export interface Building extends BuildingType {
   readonly coordinate: Coordinate;
 }
 
-export interface Buildings {
-  readonly ids: Ids;
-  readonly entities: Entities<Building>;
-}
+export interface Buildings extends Entity<Building> {}

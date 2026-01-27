@@ -1,3 +1,4 @@
+// src\perf\propAccessArrVsObjVsArrDest.ts
 interface SizeObj {
   width: 3;
   depth: 3;

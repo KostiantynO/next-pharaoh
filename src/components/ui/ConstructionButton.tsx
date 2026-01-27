@@ -1,5 +1,6 @@
 'use client';
-import { buildingTypes } from '@/api/init-store';
+
+import { buildingTypes } from '@/api/buildingTypes';
 import { useSelectChooseTypeToBuild, useSelectTypeToBuildId } from '@/stores/selectors';
 
 import type { BuildingType } from '@/types/buildings/common';

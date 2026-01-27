@@ -28,6 +28,65 @@
 - [ ] use LOD for far-away stuff
 - [ ] And batch updates in useFrame
 
+- Inside useFrame or useEffect, you update matrices:
+
+  ```tsx
+  // import {instancedMesh} from 'rf3 or drei'
+  import { shaderMaterial } from '@react-three/drei'
+
+  const BuildingMaterial = shaderMaterial(
+    { time: 0 },
+    // vertex shader
+    `
+    uniform float time;
+    void main() {
+      vec3 p = position;
+      p.y += sin(time + position.x) * 0.1;
+      gl_Position = projectionMatrix * modelViewMatrix * vec4(p, 1.0);
+    }
+    `,
+    // fragment shader
+    `
+    void main() {
+      gl_FragColor = vec4(1.0);
+    }
+    `
+  )
+
+  const A = () => {
+    const v = useMemo(() => new Vector3(), [])
+
+    useFrame((_, delta) => {
+      tempMatrix.compose(position, rotation, scale)
+      ref.current.setMatrixAt(i, tempMatrix);
+      ref.current.time += delta
+    })
+
+    return (
+      <>
+        <instancedMesh args={[geometry, material, count]} ref={ref}>
+        <buildingMaterial ref={ref} />
+      </>
+    )
+  };
+  ```
+
+- [ ] Instanced houses
+- [ ] Instanced trees
+- [ ] GPU-based idle animations (wind, heat shimmer)
+- 1️⃣ Is this repeated many times?
+- - InstancedMesh
+- 2️⃣ Is this animated every frame?
+  - Shader uniform
+- 3️⃣ Is this allocating objects in useFrame?
+  - Memoize or remove
+- 4️⃣ Does this need per-object uniqueness?
+  - Attribute, not JS loop
+
+GPU: House meshes, idle sway, wind, sun shimmer
+
+CPU: Building placement, logic, economy, pathfinding
+
 ---
 
 ### `Logistics`
@@ -46,7 +105,7 @@
   - performance.mark("end")
   - performance.measure("test", "start", "end")
   - performance.getEntriesByName("test")[0].duration
-- Broswer:
+- Broswer
 
   - wrap code in performance.measure().
   - Use Lighthouse audits.

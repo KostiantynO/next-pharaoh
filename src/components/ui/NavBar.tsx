@@ -1,12 +1,12 @@
 // src\components\NavBar.tsx
 'use client';
-import { useCallback } from 'react';
+import { memo, useCallback } from 'react';
 
 import { useSelectRotateCamera } from '@/stores/selectors';
 
 import { TimeIndicator } from './TimeIndicator';
 
-export const NavBar = () => {
+export const NavBarMemo = () => {
   const rotate = useSelectRotateCamera();
 
   const rotate0 = useCallback(() => rotate(0), [rotate]);
@@ -40,3 +40,5 @@ export const NavBar = () => {
     </header>
   );
 };
+
+export const NavBar = memo(NavBarMemo);

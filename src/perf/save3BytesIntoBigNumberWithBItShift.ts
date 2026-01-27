@@ -1,3 +1,4 @@
+// src\perf\save3BytesIntoBigNumberWithBItShift.ts
 /*
 Yes, you can use a bitwise operation to simplify the conversion from an unsigned 8-bit integer to a signed 8-bit integer. The bitwise shift operator can be used to extend the sign bit when converting from an 8-bit value to a 32-bit value. This can be done using a left shift followed by a right shift.
 
@@ -28,31 +29,31 @@ const combined = (heightBits << 16) | (depthBits << 8) | widthBits15;
 
 // To decode, reverse the bit shifts and masks
 const decodedHeight = (combined >> 16) & 0x0f;
-console.log(decodedHeight);
+console.log(decodedHeight); // 12
 const decodedDepth = (combined >> 8) & 15;
 const decodedWidth = combined & 15;
-console.log(decodedWidth);
+console.log(decodedWidth); // 5
 
 // Convert decodedDepth back to signed 8-bit integer using bitwise operations
 const signedDecodedDepth = (decodedDepth << 24) >> 24;
-console.log(signedDecodedDepth);
+console.log(signedDecodedDepth); // 10
 
 const i = 127;
-console.log(bin(i & 255));
-console.log(bin(i & 127));
-console.log(bin(i & 63));
-console.log(bin(i & 31));
-console.log(bin(i & 15));
-console.log(bin(i));
+console.log(bin(i & 255)); // '00000000000000000000000001111111'
+console.log(bin(i & 127)); // '00000000000000000000000001111111'
+console.log(bin(i & 63)); // '00000000000000000000000000111111'
+console.log(bin(i & 31)); // '00000000000000000000000000011111'
+console.log(bin(i & 15)); // '00000000000000000000000000001111'
+console.log(bin(i)); // '00000000000000000000000001111111'
 
 const b = -128;
-console.log(b);
-console.log(bin(b & 255));
-console.log(bin(b & 127));
-console.log(bin(b & 63));
-console.log(bin(b & 31));
-console.log(bin(b & 15));
-console.log(bin(b));
+console.log(b); // -128
+console.log(bin(b & 255)); // '00000000000000000000000010000000'
+console.log(bin(b & 127)); // '00000000000000000000000000000000'
+console.log(bin(b & 63)); // '00000000000000000000000000000000'
+console.log(bin(b & 31)); // '00000000000000000000000000000000'
+console.log(bin(b & 15)); // '00000000000000000000000000000000'
+console.log(bin(b)); // '00000000000000000000000-10000000' haha seems wrong ??? :D minus appearing in a string padded with zeros before the 'binary' value, which is not so binary after all (minus sign seems wrong)?
 
 /*
 Explanation

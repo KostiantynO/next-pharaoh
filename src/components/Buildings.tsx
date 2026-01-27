@@ -8,11 +8,14 @@ export const Buildings = () => {
 
   return (
     <>
-      {buildings.ids.map(buildingId => {
-        const building = buildings.entities[buildingId];
-        if (!building) return null;
-        return <SimpleBuilding key={buildingId} buildingId={buildingId} />;
-      })}
+      {
+        // TODO: bad. bad dog! You need to become a good kitty and change it to InstancedMesh :D !
+        buildings.ids.map(buildingId => {
+          const building = buildings.entities[buildingId];
+          if (!building) return null;
+          return <SimpleBuilding key={buildingId} buildingId={buildingId} />;
+        })
+      }
     </>
   );
 };

@@ -1,4 +1,4 @@
-import type { Entities, Ids } from './common';
+import type { Entity } from './common';
 
 export interface Dynasty {
   readonly id: string;
@@ -6,7 +6,4 @@ export interface Dynasty {
   readonly description: string;
 }
 
-export interface Dynasties {
-  readonly ids: Ids;
-  readonly entities: Entities<Dynasty>;
-}
+export interface Dynasties extends Entity<Dynasty> {}

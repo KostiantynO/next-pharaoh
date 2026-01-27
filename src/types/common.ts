@@ -1,6 +1,8 @@
 // src\types\common.ts
 export type IsometricAngles = 0 | 90 | 180 | 270;
 
+export type Tripla = [number, number, number];
+
 export type Desirability = readonly [
   D1: number,
   D2: number,
@@ -24,4 +26,8 @@ export type DifficultyArray = readonly [
 export type ZeroOnEveryDifficulty = readonly [VH: 0, H: 0, N: 0, E: 0, VE: 0];
 
 export interface Ids extends Array<string> {}
-export interface Entities<T> extends Record<string, T | undefined> {}
+export interface Entities<T> extends Record<string, undefined | T> {}
+export interface Entity<T> {
+  ids: Ids;
+  entities: Entities<T>;
+}

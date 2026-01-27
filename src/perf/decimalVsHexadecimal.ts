@@ -1,3 +1,4 @@
+// src\perf\decimalVsHexadecimal.ts
 const repeat = (reps: number, callback: () => unknown) => {
   let total = 0;
   for (let i = reps; i > 0; --i) {
@@ -18,6 +19,11 @@ const bitwiseHex = () => {
   }
   return result;
 };
+
+// I tried to squeeze out maximum amount of perf from each line of code, like using i>0 and --i
+// to let this operation be milliseconds faster :D
+// Idk if it is true faster, but when i tested, it seems fastest.
+// It is hard to test long running loops, they are interjected with gc or some pc work etc...
 
 const bitwiseDecimal = () => {
   let result = 0;
