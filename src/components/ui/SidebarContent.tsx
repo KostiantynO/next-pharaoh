@@ -21,6 +21,7 @@ const ButtonsMemo = () => (
 );
 
 const Buttons = memo(ButtonsMemo);
+Buttons.displayName = 'Buttons';
 
 const SidebarContentMemo = () => {
   const { isSidebarOpen, toggleSidebar } = useSelectDataForSidebar();
@@ -46,3 +47,4 @@ const SidebarContentMemo = () => {
 };
 
 export const SidebarContent = memo(SidebarContentMemo);
+SidebarContent.displayName = 'SidebarContent';

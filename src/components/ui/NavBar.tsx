@@ -42,3 +42,4 @@ const NavBarMemo = () => {
 };
 
 export const NavBar = memo(NavBarMemo);
+NavBar.displayName = 'NavBar';

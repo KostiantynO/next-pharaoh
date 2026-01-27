@@ -49,3 +49,4 @@ const MainMenuMemo = () => {
 };
 
 export const MainMenu = memo(MainMenuMemo);
+MainMenu.displayName = 'MainMenu';

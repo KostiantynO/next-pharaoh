@@ -25,7 +25,6 @@ const SimpleBuildingMeshMemo = ({
 };
 
 const SimpleBuildingMesh = memo(SimpleBuildingMeshMemo);
-
 SimpleBuildingMesh.displayName = 'SimpleBuildingMesh';
 
 const SimpleBuildingMemo = ({ buildingId }: { buildingId: Building['buildingId'] }) => {

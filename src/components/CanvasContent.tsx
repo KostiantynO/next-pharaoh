@@ -29,3 +29,4 @@ const CanvasContentMemo = () => {
 };
 
 export const CanvasContent = memo(CanvasContentMemo);
+CanvasContent.displayName = 'CanvasContent';

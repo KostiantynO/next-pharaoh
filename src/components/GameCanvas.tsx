@@ -66,3 +66,4 @@ const GameCanvasMemo = ({ children }: { children: ReactNode }) => {
 };
 
 export const GameCanvas = memo(GameCanvasMemo);
+GameCanvas.displayName = 'GameCanvas';
