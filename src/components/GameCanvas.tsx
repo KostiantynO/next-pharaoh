@@ -1,3 +1,4 @@
+// src\components\GameCanvas.tsx
 'use client';
 import { Canvas } from '@react-three/fiber';
 import { useCallback, useRef } from 'react';
@@ -5,8 +6,25 @@ import { useCallback, useRef } from 'react';
 import { useSelectDataForCanvas } from '@/stores/selectors';
 
 import type { ClickOnCanvas } from '@/types/interactions';
+import type { Dpr } from '@react-three/fiber';
 import type { ReactNode } from 'react';
 import type { Camera, Scene } from 'three';
+
+const devicePixelRatio: Dpr = [1, 1.5];
+
+interface CameraConfig {
+  near: number;
+  far: number;
+  zoom: number;
+  position: [number, number, number];
+}
+
+const cameraConfig: CameraConfig = {
+  zoom: 50,
+  near: 0.1,
+  far: 1000,
+  position: [10, 10, 10],
+};
 
 export const GameCanvas = ({ children }: { children: ReactNode }) => {
   const { isSidebarOpen, addBuilding } = useSelectDataForCanvas();
@@ -27,7 +45,9 @@ export const GameCanvas = ({ children }: { children: ReactNode }) => {
     <div className="absolute bottom-0 h-[calc(100%-24px)] w-full">
       <Canvas
         orthographic
-        camera={{ zoom: 50, near: 0.1, far: 1000, position: [10, 10, 10] }}
+        dpr={devicePixelRatio}
+        frameloop="demand"
+        camera={cameraConfig}
         className={`isolate bg-slate-600 contain-strict ${isSidebarOpen ? `w-[calc(100%-300px)]` : 'w-full'}`}
         onClick={onCanvasClick}
         onCreated={({ scene, camera }) => {
