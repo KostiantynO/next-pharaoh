@@ -10,14 +10,19 @@ import type { BuildingType } from '@/types/buildings/common';
 
 const buildingTypesArray = Object.values<BuildingType>(buildingTypes);
 
-const Buttons = () =>
-  buildingTypesArray.map(({ typeId }) => (
-    <li key={typeId}>
-      <ConstructionButton buildingTypeId={typeId} />
-    </li>
-  ));
+const ButtonsMemo = () => (
+  <>
+    {buildingTypesArray.map(({ typeId }) => (
+      <li key={typeId}>
+        <ConstructionButton buildingTypeId={typeId} />
+      </li>
+    ))}
+  </>
+);
 
-export const SidebarContentMemo = () => {
+const Buttons = memo(ButtonsMemo);
+
+const SidebarContentMemo = () => {
   const { isSidebarOpen, toggleSidebar } = useSelectDataForSidebar();
 
   const arrow = isSidebarOpen ? '>' : '<';

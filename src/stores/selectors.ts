@@ -3,7 +3,7 @@ import { useGameStore } from '@/providers/StoreProvider';
 
 import type { Store } from '@/stores/store';
 import type { Building, BuildingType } from '@/types/buildings/common';
-
+import type { MenuActionId } from '@/types/menu';
 
 const selectVersion = ({ version }: Store) => version;
 const selectTotalPopulation = ({ totalPopulation }: Store) => totalPopulation;
@@ -26,6 +26,11 @@ const selectDataForSidebar = ({ isSidebarOpen, toggleSidebar }: Store) => ({
   toggleSidebar,
 });
 
+const selectStarNewGame = ({ startNewGame }: Store) => startNewGame;
+const selectLoadGame = ({ loadGame }: Store) => loadGame;
+const selectOpenSettings = ({ openSettings }: Store) => openSettings;
+const selectExit = ({ exit }: Store) => exit;
+
 export const useSelectTime = () => useGameStore(selectTime);
 export const useSelectVersion = () => useGameStore(selectVersion);
 export const useSelectTotalPopulation = () => useGameStore(selectTotalPopulation);
@@ -46,3 +51,27 @@ export const useSelectBuilding = (buildingId: Building['buildingId']) =>
   useGameStore(({ getBuilding }) => getBuilding(buildingId));
 
 export const useSelectDataForCanvas = () => useGameStore(selectDataForCanvas);
+
+export const useSelectStarNewGame = () => useGameStore(selectStarNewGame);
+export const useSelectLoadGame = () => useGameStore(selectLoadGame);
+export const useSelectOpenSettings = () => useGameStore(selectOpenSettings);
+export const useSelectExit = () => useGameStore(selectExit);
+
+export const useSelectMenuButtonAction = (actionId: MenuActionId) =>
+  useGameStore(({ startNewGame, loadGame, openSettings, exit }) => {
+    switch (actionId) {
+      case startNewGame.name:
+        return startNewGame;
+
+      case loadGame.name:
+        return loadGame;
+
+      case openSettings.name:
+        return openSettings;
+
+      case exit.name:
+        return exit;
+      default:
+        return;
+    }
+  });

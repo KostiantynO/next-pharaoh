@@ -32,7 +32,7 @@ const Cell = memo(({ children }: { children: ReactNode }) => (
 ));
 Cell.displayName = 'Cell';
 
-export const GridCoordinates = ({ size }: GridCoordinatesProps) => {
+const GridCoordinates = ({ size }: GridCoordinatesProps) => {
   const encodedCoordinates = useMemo(() => {
     const coords = [];
     for (let x = -size; x <= size; ++x) {

@@ -6,7 +6,7 @@ import { useSelectRotateCamera } from '@/stores/selectors';
 
 import { TimeIndicator } from './TimeIndicator';
 
-export const NavBarMemo = () => {
+const NavBarMemo = () => {
   const rotate = useSelectRotateCamera();
 
   const rotate0 = useCallback(() => rotate(0), [rotate]);

@@ -35,6 +35,10 @@ interface Actions {
   getBuilding: (buildingId: Building['buildingId']) => undefined | Building;
   removeBuilding: (event: ClickOnCanvas) => void;
   toggleSidebar: () => void;
+  startNewGame: () => void;
+  loadGame: () => void;
+  openSettings: () => void;
+  exit: () => void;
 }
 
 export interface Store extends State, Actions {}
@@ -155,7 +159,7 @@ export const createGameStore = (initialState: State): GameStore =>
          because x is a point on the HORIZONTAL axis, aka width AND length, of a flat surface... PRESUMABLY???
          Y is the point on VERTICAL axis, aka `height`,
          and z is a point on z axis... which is used to compute `depth` of an object in 3D space...???
-         so, actually, I need x and z. in order to operate on flat terrain, like Pharaoh game is.
+         so, actually, I need x and z. in order to operate on flat terrain, like Pharaohhh game is.
          and y axis is useless in general :), unless we are placing a mastaba or a GREAT PYRAMID,,, which takes half/whole screen :D
          but my mind is still referring to `flat` as x and y. WHY??? :D
          it is a cognitive mistake :D
@@ -243,4 +247,16 @@ export const createGameStore = (initialState: State): GameStore =>
       });
     },
     toggleSidebar: () => set(({ isSidebarOpen }) => ({ isSidebarOpen: !isSidebarOpen })),
+    startNewGame: () => {
+      //
+    },
+    loadGame: () => {
+      //
+    },
+    openSettings: () => {
+      //
+    },
+    exit: () => {
+      //
+    },
   }));

@@ -8,11 +8,11 @@ import { Buildings } from './Buildings';
 import { FixedAngleCamera } from './FixedAngleCamera';
 // import { GridCoordinatesOnMap } from './GridCoordinates';
 
-import type { Vector3 } from '@react-three/fiber';
+// import type { Vector3 } from '@react-three/fiber';
 
-const pointLightPosition: Vector3 = [10, 10, 10];
+// const pointLightPosition: Vector3 = [10, 10, 10];
 
-export const CanvasContentMemo = () => {
+const CanvasContentMemo = () => {
   return (
     <>
       <ambientLight intensity={1} />

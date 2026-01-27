@@ -2,7 +2,7 @@ import type { Entity } from '@/types/common';
 
 export interface Food extends Record<'foodId' | 'food' | 'icon', string> {}
 
-export const foodArr = [
+const foodArr = [
   ['Grain', '🌾'],
   ['Meat', '🍗'],
   ['Lettuce', '🥬'],

@@ -1,11 +1,11 @@
 // src\components\GridCoordinatesV2.tsx
 import { Text } from '@react-three/drei';
-import { memo, useMemo, useRef } from 'react';
-import { Object3D } from 'three';
+import { memo, useMemo } from 'react';
+// import { Object3D } from 'three';
 
 import type { Tripla } from '@/types/common';
 import type { ReactNode } from 'react';
-import type { InstancedMesh } from 'three';
+// import type { InstancedMesh } from 'three';
 
 interface GridCoordinatesProps {
   size: number;
@@ -34,14 +34,14 @@ const Cell = memo(({ children }: { children: ReactNode }) => (
 ));
 Cell.displayName = 'Cell';
 
-export const GridCoordinates = ({ size }: GridCoordinatesProps) => {
-  const meshRef = useRef<InstancedMesh>(null);
+const GridCoordinates = ({ size }: GridCoordinatesProps) => {
+  // const meshRef = useRef<InstancedMesh>(null);
 
-  const count = (size * 2 + 1) ** 2;
+  // const count = (size * 2 + 1) ** 2;
 
-  const matrices = useMemo(() => {
-    const temp3DObj = new Object3D();
-  }, [size]);
+  // const matrices = useMemo(() => {
+  //   const temp3DObj = new Object3D();
+  // }, [size]);
 
   const encodedCoordinates = useMemo(() => {
     const coords = [];

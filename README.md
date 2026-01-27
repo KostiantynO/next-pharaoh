@@ -12,13 +12,13 @@ pnpm add -D @types/three # 402 MB (421,849,020 bytes)
 
 - Game Design:
 
-  - `What kind of game mechanics are you planning for Pharaoh?`
+  - `What kind of game mechanics are you planning for PharaOwO?`
 
     `Answer`: I want to make it similar to original Pharaoh, but on web. Because it is
     simple game by its nature. The are no fancy 3D stuff. It is mostly static buildings,
     roads, grass, trees. But some parts are dynamic - like mobile military units, roaming
     wild animals, birds, crocs, hippos, emigrants and immigrants, citizens. The setting
-    takes place in early Egypt, where you build Pyramids and you help Pharaoh to build a
+    takes place in early Egypt, where you build Pyramids and you help PharaOwO to build a
     great country with beautiful and rich cities by governing each city development in its
     own mission (scenario/map).
 
@@ -214,3 +214,9 @@ pnpm add -D @types/three # 402 MB (421,849,020 bytes)
     instead of CPU?
 
 - [`next.js`](/md/next.md)
+
+This a parody hobby personal project in good faith :D
+
+I'm learning how to make a city builder games in web using 3js, rf3, and drei :)
+
+“Temporary placeholder assets used for prototyping. Will be replaced.”
