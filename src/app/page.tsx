@@ -1,9 +1,12 @@
 import { memo } from 'react';
 
-const GameMemo = () => {
-  return <div>page</div>;
+import { MainMenuScreen } from '@/components/ui/MainMenuScreen';
+
+const HomeMemo = () => {
+  return <MainMenuScreen />;
 };
 
-const Game = memo(GameMemo);
-Game.displayName = 'Game';
-export default Game;
+const Home = memo(HomeMemo);
+Home.displayName = 'Home';
+
+export default Home;

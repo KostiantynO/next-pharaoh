@@ -9,18 +9,16 @@ import { SidebarContent } from '@/components/ui/SidebarContent';
 
 import type { ReactNode } from 'react';
 
-const CanvasMemo = () => {
-  return (
-    <GameCanvas>
-      <CanvasContent />
-    </GameCanvas>
-  );
-};
+const CanvasMemo = () => (
+  <GameCanvas>
+    <CanvasContent />
+  </GameCanvas>
+);
 
 const Canvas = memo(CanvasMemo);
 Canvas.displayName = 'Canvas';
 
-const HomePageMemo = ({ children }: { children: ReactNode }) => {
+const GamePageMemo = ({ children }: { children: ReactNode }) => {
   return (
     <main className="relative flex h-full flex-col">
       <NavBar />
@@ -32,16 +30,16 @@ const HomePageMemo = ({ children }: { children: ReactNode }) => {
   );
 };
 
-const HomePage = memo(HomePageMemo);
-HomePage.displayName = 'HomePage';
+const GamePage = memo(GamePageMemo);
+GamePage.displayName = 'GamePage';
 
-const HomeMemo = () => (
-  <HomePage>
+const GameMemo = () => (
+  <GamePage>
     <Canvas />
-  </HomePage>
+  </GamePage>
 );
 
-const Home = memo(HomeMemo);
-Home.displayName = 'Home';
+const Game = memo(GameMemo);
+Game.displayName = 'Game';
 
-export default Home;
+export default Game;

@@ -34,7 +34,7 @@ const MainMenuButton = ({ menuActionId, label, icon }: MainMenuButtonProps) => {
 
 const MainButtonsList = () => {
   return (
-    <ul className="flex flex-col gap-4">
+    <ul className="flex flex-col gap-4 space-y-4 rounded-xl bg-black/40 p-6 backdrop-blur-md">
       {buttons.map(([menuActionId, icon, label], id) => (
         <li key={id}>
           <MainMenuButton menuActionId={menuActionId} label={label} icon={icon} />
