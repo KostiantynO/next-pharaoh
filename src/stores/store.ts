@@ -33,6 +33,7 @@ interface Actions {
   chooseTypeToBuild: (typeToBuildId: BuildingType['typeId']) => () => void;
   addBuilding: (e: ClickOnCanvas, camera: Camera, scene: Scene) => void;
   getBuilding: (buildingId: Building['buildingId']) => undefined | Building;
+  getBuildingIds: () => Building['buildingId'][];
   removeBuilding: (event: ClickOnCanvas) => void;
   toggleSidebar: () => void;
   startNewGame: () => void;
@@ -72,7 +73,7 @@ const createBuilding = ({
   clientHeight: number;
   camera: Camera;
   scene: Scene;
-}): undefined | { buildingId: string; coordinate: Coordinate } => {
+}): undefined | { coordinate: Coordinate } => {
   const raycaster = new Raycaster();
   const mouse = new Vector2();
 
@@ -90,12 +91,49 @@ const createBuilding = ({
   const y = 0;
   const z = Math.floor(point.z) + 0.5;
 
-  const newId = `${buildingIds++}`;
+  // TODO use object pooling, because this function -> returns a new object on each click of the map (canvas).
+  // that is a free GC pass to remove out of my app, and a free perf improvement :D
+  // easy. :D
+  // So, is every '{}' literal opening in my app, like ' { ' - is my sworn enemy??? :D
+  return {
+    coordinate:
+      // is it worth it to create a new array?
+      // or better reuse some TypedArray???
 
-  // TODO use object pooling
-  return { buildingId: newId, coordinate: [x, y, z] };
+      // TODOMEeeow;3 make reuse of a TypedArray or smth :D
+      // No need to create a new array every 'freaking raycast' time.
+      [x, y, z],
+  };
 };
 
+/** TODO ask AI, does zustand creates new freaking objects in mem, just to diff old store to a new value?
+ how to avoid that - creating new objects on each zustand sneeze?
+ that is a lot of free GC passes, waiting to be removed from my app :D
+ easy perf win, isn't??? :D
+ cause we would eliminate GC. RIGHT????? :D
+ I say 'would', and not 'certainly will'... as Quinn Finite asked me about my resolve once upon a time :D ... ,
+ because I am not sure if zustand new object creating can be eliminated.
+ I think zustand is working by comparing old store by reference.
+ new object = new reference in memory, so zustand goes => Oh! I need to update! :D
+ But can we use OBJECT POOLING WITH zustand??? :D
+ Isn't zustand a 'ONE GOD' object pattern??? :D
+ Well, I do not want to go around my app, scanning in futile attempts, after 2 years,
+ when the fucking thing changes...
+ AND WHY ???
+ what else millions of things depend on it down the tree.....
+ :D LOL
+ I WOULD RATHER EDIT ONE SOURCE OF TRUTH...
+ and be THE GOD...
+ than go be some dirt shoveller in each component shitty logic... :D
+ ...
+ ONE STORE TO RULE THEM ALL.
+ ONE STORE TO FIND THEM!
+ AND IN LIGHTNESS.
+ FREE THEM FROM THE HASSLE OF DOING MANUAL EDITS IN MILLIONS OF BS FILES.
+
+ INSTEAD, WE HAVE THE ONE! THE `CHOSEN ONE` :)!
+ THE GODLY, THE SEXY, THE FILE :D THE called THE `store.ts THE :D THE :D THE :D THE :D THE :D` THE! :D
+ */
 export const createGameStore = (initialState: State): GameStore =>
   create<Store>((set, get) => ({
     ...initialState,
@@ -132,7 +170,14 @@ export const createGameStore = (initialState: State): GameStore =>
 
       if (!point) return;
 
-      const { buildingId, coordinate } = point;
+      const {
+        // buildingId,
+        coordinate,
+      } = point;
+
+      // buildingId is a new unique id for a building
+      // buildingId should originate from raycaster???
+      // no, it is work of zustand - as my current DB in RAM, to increment the buildingId
 
       const newX = coordinate[0];
       const newY = coordinate[1];
@@ -145,6 +190,13 @@ export const createGameStore = (initialState: State): GameStore =>
 
       const { length } = buildings.ids;
 
+      // TODO check only local buildings sizes..., in radius R around mouth click,... to do not overlap
+      // STOP looping over every freaking building!
+      // get ids of nearby buildings, then loop over them. it would mean
+      // two consecutive loops.
+      // one loop to filter out all buildings from array of buildings in radius R around mouth click.
+      // then seconds loop to compare if coordinates AND SIZE of a building-to-be-constructed would overlap with
+      // existing buildings coordinates and SIZE.
       for (let i = length - 1; i >= 0; i--) {
         const id = buildings.ids[i];
 
@@ -211,6 +263,8 @@ export const createGameStore = (initialState: State): GameStore =>
 
       const newCoordinate = increaseYCoordinate(size[1], newX, newY, newZ);
 
+      const buildingId = `${buildingIds++}`;
+
       const newBuilding: Building = {
         buildingId,
         typeId,
@@ -233,6 +287,7 @@ export const createGameStore = (initialState: State): GameStore =>
       }));
     },
     getBuilding: buildingId => get().buildings.entities[buildingId],
+    getBuildingIds: () => get().buildings.ids,
     removeBuilding: e => {
       const id = e?.currentTarget?.id;
       if (id === undefined || id === null) return;
@@ -248,15 +303,15 @@ export const createGameStore = (initialState: State): GameStore =>
     },
     toggleSidebar: () => set(({ isSidebarOpen }) => ({ isSidebarOpen: !isSidebarOpen })),
     startNewGame: () => {
-      //
+      console.log('startNewGame');
     },
     loadGame: () => {
-      //
+      console.log('loadGame');
     },
     openSettings: () => {
-      //
+      console.log('openSettings');
     },
     exit: () => {
-      //
+      console.log('exit');
     },
   }));

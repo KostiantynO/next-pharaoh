@@ -6,7 +6,7 @@ const NileShimmer = () => (
   <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_80%,rgba(255,255,255,0.2),transparent_60%)] opacity-20" />
 );
 
-const Decor = () => (
+const DecorAbsoluteGradient = () => (
   <>
     <NileShimmer />
   </>
@@ -44,13 +44,13 @@ export const MainMenuScreen = () => {
 
   return (
     <div className="relative h-screen w-screen overflow-hidden bg-gradient-to-b from-amber-900 via-orange-800 to-indigo-950">
+      <DecorAbsoluteGradient />
+
       <Hero />
 
       <Menu />
 
       <Footer />
-
-      <Decor />
     </div>
   );
 };

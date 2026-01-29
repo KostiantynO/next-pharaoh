@@ -3,23 +3,18 @@ import { memo } from 'react';
 
 import { useSelectMenuButtonAction } from '@/stores/selectors';
 
-import type { MenuActionId, MenuButtonsType } from '@/types/menu';
+import type { MenuButtonsType } from '@/types/menu';
 
-const buttons: MenuButtonsType = [
-  ['startNewGame', 'Establish Meowdynasty', '🐾'],
-  ['loadGame', 'Load Dynasty', '📜'],
-  ['openSettings', 'Temple Settings', '⚙️'],
-  ['exit', 'Exit Game', '🚪'],
+const buttons: MenuButtonsType[] = [
+  { menuActionId: 'startNewGame', label: 'Establish Meowdynasty', icon: '🐾' },
+  { menuActionId: 'loadGame', label: 'Load Dynasty', icon: '📜' },
+  { menuActionId: 'openSettings', label: 'Temple Settings', icon: '⚙️' },
+  { menuActionId: 'exit', label: 'Exit Game', icon: '🚪' },
 ];
 
-interface MainMenuButtonProps {
-  menuActionId: MenuActionId;
-  label: string;
-  icon: string;
-}
-
-const MainMenuButton = ({ menuActionId, label, icon }: MainMenuButtonProps) => {
+const MainMenuButton = ({ menuActionId, label, icon }: MenuButtonsType) => {
   const onMenuButtonClick = useSelectMenuButtonAction(menuActionId);
+  console.log(onMenuButtonClick);
   if (!onMenuButtonClick) return null;
 
   return (
@@ -35,8 +30,8 @@ const MainMenuButton = ({ menuActionId, label, icon }: MainMenuButtonProps) => {
 const MainButtonsList = () => {
   return (
     <ul className="flex flex-col gap-4 space-y-4 rounded-xl bg-black/40 p-6 backdrop-blur-md">
-      {buttons.map(([menuActionId, icon, label], id) => (
-        <li key={id}>
+      {buttons.map(({ menuActionId, label, icon }) => (
+        <li key={menuActionId}>
           <MainMenuButton menuActionId={menuActionId} label={label} icon={icon} />
         </li>
       ))}

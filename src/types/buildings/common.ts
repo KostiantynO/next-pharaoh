@@ -1,5 +1,5 @@
 // src\types\buildings\common.ts
-import type { Desirability, DifficultyArray, Entities, Entity, Ids } from '../common';
+import type { Desirability, DifficultyArray, Entity } from '../common';
 
 export type Size = readonly [width: number, height: number, depth: number];
 export type Coordinate = readonly [x: number, y: number, z: number];
