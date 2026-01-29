@@ -170,10 +170,7 @@ export const createGameStore = (initialState: State): GameStore =>
 
       if (!point) return;
 
-      const {
-        // buildingId,
-        coordinate,
-      } = point;
+      const { coordinate } = point;
 
       // buildingId is a new unique id for a building
       // buildingId should originate from raycaster???
@@ -197,7 +194,8 @@ export const createGameStore = (initialState: State): GameStore =>
       // one loop to filter out all buildings from array of buildings in radius R around mouth click.
       // then seconds loop to compare if coordinates AND SIZE of a building-to-be-constructed would overlap with
       // existing buildings coordinates and SIZE.
-      for (let i = length - 1; i >= 0; i--) {
+
+      for (let i = 0; i < length; i++) {
         const id = buildings.ids[i];
 
         const building = buildings.entities[id];
@@ -277,7 +275,7 @@ export const createGameStore = (initialState: State): GameStore =>
         images,
       };
 
-      console.log(newBuilding);
+      console.log({ newBuilding });
 
       set(({ buildings: { ids, entities } }) => ({
         buildings: {
